@@ -1,0 +1,77 @@
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependencies (if added later)
+node_modules/
+vendor/
+bower_components/
+
+# Build Output (if added later)
+dist/
+build/
+out/
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+
+# Secrets & Credentials
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+service-account.json
+
+# n8n Exports (sensitive data)
+n8n-exports-sensitive/
+*-credentials.json
+
+# Misc
+.netlify/
+.vercel/

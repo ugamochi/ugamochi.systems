@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pavel Ugamoti — Agentic Architect</title>
   <meta name="description" content="I design AI systems that run your operations while you sleep. Agentic architecture for law firms, agencies, and service businesses.">
+
+  <!-- SEO & Branding -->
+  <meta name="author" content="Pavel Ugamoti">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://pavel.systems/">
+
+  <!-- Favicon (TODO: Create actual favicon files) -->
+  <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg"> -->
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1108,6 +1118,96 @@
     }
 
     /* ═══════════════════════════════════════
+       LEAD FORM
+    ═══════════════════════════════════════ */
+    .lead-form {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200, 255, 0, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-hint {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .form-submit {
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-status {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .form-status.success {
+      background: rgba(200, 255, 0, 0.1);
+      border: 1px solid var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .form-status.error {
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.3);
+      color: var(--warm);
+    }
+
+    /* ═══════════════════════════════════════
        FOOTER
     ═══════════════════════════════════════ */
     .footer {
@@ -1746,16 +1846,41 @@
         <div class="section-label">Let's Talk</div>
         <h2>Ready to stop paying <em>people to do what machines should?</em></h2>
         <p>Book a free 30-minute strategy call. I'll map your highest-ROI automation opportunity and give you a concrete plan — whether you hire me or not.</p>
-        <div class="cta-actions">
-          <a href="mailto:pavel@example.com" class="btn-primary">
-            Book a Free Strategy Call
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-          <a href="mailto:pavel@example.com" class="btn-ghost">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Or email me directly
-          </a>
-        </div>
+        <form id="leadForm" class="lead-form">
+          <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" name="name" required aria-required="true" autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" name="email" required aria-required="true" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="company">Company (Optional)</label>
+            <input type="text" id="company" name="company" autocomplete="organization">
+          </div>
+
+          <div class="form-group">
+            <label for="message">What's your biggest operational bottleneck?</label>
+            <textarea id="message" name="message" rows="4" placeholder="e.g., Client onboarding takes 3+ days, leads aren't followed up quickly, too much manual data entry..." aria-describedby="message-hint"></textarea>
+            <small id="message-hint" class="form-hint">This helps me prepare for our call</small>
+          </div>
+
+          <!-- Honeypot field for spam protection -->
+          <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
+
+          <button type="submit" class="btn-primary form-submit">
+            <span class="btn-text">Book Free Strategy Call</span>
+            <span class="btn-loading" style="display:none;">Sending...</span>
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </button>
+
+          <div class="form-status" style="display:none;" role="alert" aria-live="polite"></div>
+        </form>
         <div class="cta-note">No commitment. No pitch deck. Just a conversation about what's possible.</div>
       </div>
     </div>
@@ -2073,6 +2198,104 @@
       document.querySelectorAll('.reveal').forEach(el => {
         el.style.opacity = 1;
         el.style.transform = 'none';
+      });
+    }
+
+    // ─── Lead Form Submission ───
+    const leadForm = document.getElementById('leadForm');
+    if (leadForm) {
+      leadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Check honeypot field
+        if (leadForm.website.value) {
+          console.log('Bot detected via honeypot field');
+          return; // Silent fail for bots
+        }
+
+        const btn = leadForm.querySelector('.form-submit');
+        const btnText = btn.querySelector('.btn-text');
+        const btnLoading = btn.querySelector('.btn-loading');
+        const formStatus = leadForm.querySelector('.form-status');
+
+        // Show loading state
+        btn.disabled = true;
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'inline';
+        formStatus.style.display = 'none';
+
+        // Prepare form data
+        const formData = {
+          name: leadForm.name.value.trim(),
+          email: leadForm.email.value.trim(),
+          company: leadForm.company.value.trim(),
+          message: leadForm.message.value.trim(),
+          timestamp: new Date().toISOString(),
+          source: 'pavel.systems',
+          userAgent: navigator.userAgent,
+          referrer: document.referrer || 'direct'
+        };
+
+        try {
+          // TODO: Replace with actual n8n webhook URL after setup
+          const webhookUrl = 'YOUR_N8N_WEBHOOK_URL';
+
+          if (webhookUrl === 'YOUR_N8N_WEBHOOK_URL') {
+            // Development mode - simulate success
+            console.log('Form data (dev mode):', formData);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            throw new Error('n8n webhook not configured yet');
+          }
+
+          const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+          });
+
+          if (response.ok) {
+            // Success
+            formStatus.className = 'form-status success';
+            formStatus.innerHTML = '✓ Thanks! I\'ll review your request and reach out within 24 hours.';
+            formStatus.style.display = 'block';
+            leadForm.reset();
+
+            // Track conversion if analytics present
+            if (typeof plausible !== 'undefined') {
+              plausible('Lead Submitted', { props: { company: formData.company || 'none' } });
+            }
+          } else {
+            throw new Error('Server returned ' + response.status);
+          }
+        } catch (error) {
+          // Error handling
+          console.error('Form submission error:', error);
+          formStatus.className = 'form-status error';
+
+          if (error.message.includes('webhook not configured')) {
+            formStatus.innerHTML = '⚠️ Form backend not yet configured. Please contact me at <a href="mailto:pavel@example.com" style="color: var(--warm); text-decoration: underline;">pavel@example.com</a>';
+          } else {
+            formStatus.innerHTML = '⚠️ Submission failed. Please email me directly at <a href="mailto:pavel@example.com" style="color: var(--warm); text-decoration: underline;">pavel@example.com</a>';
+          }
+
+          formStatus.style.display = 'block';
+        } finally {
+          // Reset button state
+          btn.disabled = false;
+          btnText.style.display = 'inline';
+          btnLoading.style.display = 'none';
+        }
+      });
+
+      // Basic client-side validation
+      leadForm.email.addEventListener('blur', function() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (this.value && !emailRegex.test(this.value)) {
+          this.setCustomValidity('Please enter a valid email address');
+          this.reportValidity();
+        } else {
+          this.setCustomValidity('');
+        }
       });
     }
   </script>
