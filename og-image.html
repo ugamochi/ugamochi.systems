@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, height=630">
+  <title>OG Image — Pavel Ugamoti</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 1200px;
+      height: 630px;
+      font-family: system-ui, sans-serif;
+      background: #0b0b0b;
+      color: #e7e6d9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(98,54,244,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .logo {
+      width: 160px;
+      height: 160px;
+      background: #6236f4;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2rem;
+    }
+    h1 { font-size: 48px; font-weight: 600; margin-bottom: 0.5rem; }
+    .tagline { font-size: 24px; color: #a17ff7; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+    .desc { font-size: 22px; color: #b9b8ae; }
+  </style>
+</head>
+<body>
+  <div class="logo">P</div>
+  <h1>Pavel Ugamoti</h1>
+  <p class="tagline">AGENTIC ARCHITECT</p>
+  <p class="desc">AI systems that run your operations while you sleep</p>
+</body>
+</html>
+<!-- Screenshot at 1200x630 to generate og-image.png for social previews. Save as og-image.png in root. -->

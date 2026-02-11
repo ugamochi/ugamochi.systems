@@ -31,10 +31,10 @@ A single-page portfolio website showcasing AI automation services for profession
 
 ```
 pavel.systems/
-├── index.html              # Single-file website (2,364 lines)
-│   ├── CSS (lines 29-1416)
-│   ├── HTML (lines 1417-1962)
-│   └── JavaScript (lines 1963-2363)
+├── index.html              # Single-file website
+├── og-image.svg            # Social sharing preview (1200x630)
+├── og-image.html           # Source for PNG capture if needed
+├── netlify.toml            # Netlify deploy config
 ├── README.md               # This file
 ├── .gitignore              # Git exclusions
 ├── docs/
@@ -86,7 +86,7 @@ See **[docs/N8N_SETUP_STAGE1.md](docs/N8N_SETUP_STAGE1.md)** for the full walkth
 1. Create n8n cloud account at https://cloud.n8n.io
 2. Configure Gmail OAuth2 credential
 3. Create webhook workflow (Webhook -> Set -> Gmail x2)
-4. Replace `YOUR_N8N_WEBHOOK_URL` in `index.html` line ~2303
+4. Replace `YOUR_N8N_WEBHOOK_URL` in `index.html` line ~2543
 5. Test and deploy
 
 ### Stage 2-4: Advanced Features
@@ -149,12 +149,13 @@ Edit CSS custom properties in `:root` (line 30):
 }
 ```
 
-### Add Analytics
+### Analytics
 
-Add before closing `</head>` tag:
-```html
-<script defer data-domain="pavel.systems" src="https://plausible.io/js/script.js"></script>
-```
+Plausible is already included. To disable, remove the script from `index.html`.
+
+### og-image (Social Previews)
+
+`og-image.svg` is used for link previews. Some platforms (Twitter, LinkedIn) prefer PNG—if previews fail, screenshot `og-image.html` at 1200×630, save as `og-image.png`, and update the `og:image` and `twitter:image` meta tags to point to it.
 
 ## Testing
 
@@ -189,9 +190,9 @@ Copyright 2026 Pavel Ugamoti. All rights reserved.
 ### Sprint 2
 - [x] SEO meta tags (Open Graph, Twitter Cards)
 - [x] Favicon
-- [ ] og-image for social sharing
+- [x] og-image for social sharing (og-image.svg + og-image.html)
 - [ ] Google Sheets lead tracking
-- [ ] Analytics setup (Plausible)
+- [x] Analytics setup (Plausible)
 
 ### Sprint 3
 - [ ] AI lead scoring

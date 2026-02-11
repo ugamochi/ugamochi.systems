@@ -291,7 +291,7 @@ https://yourinstance.app.n8n.cloud/webhook/lead-form
 ### 5.2 Update index.html
 
 1. Open `index.html` in your editor
-2. Find line ~2303: `const webhookUrl = 'YOUR_N8N_WEBHOOK_URL';`
+2. Find line ~2543: `const webhookUrl = 'YOUR_N8N_WEBHOOK_URL';`
 3. Replace with your actual webhook URL:
 
 ```javascript
