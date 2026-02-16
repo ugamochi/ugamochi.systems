@@ -251,7 +251,7 @@ This guide walks you through setting up the **Stage 1** contact form backend usi
 2. Open a new tab and use curl or Postman to send a test:
 
 ```bash
-curl -X POST https://YOUR_N8N_WEBHOOK_URL \
+curl -X POST  http://localhost:5678/webhook/lead-form \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Test User",

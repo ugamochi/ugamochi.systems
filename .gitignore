@@ -75,6 +75,10 @@ service-account.json
 n8n-exports-sensitive/
 *-credentials.json
 
+# n8n local secrets
+n8n-workflows/.env
+n8n-workflows/.env.local
+
 # Misc
 .netlify/
 .vercel/

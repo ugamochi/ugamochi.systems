@@ -543,18 +543,18 @@
       <div class="cta-content reveal">
         <div class="cta-text">
           <div class="section-label">Let's Talk</div>
-          <h2>Ready to stop paying <em>people to do what machines should?</em></h2>
+          <h2>Stop wasting good people on <em>repetitive tasks</em></h2>
           <p>Book a free 30-minute strategy call. I'll map your highest-ROI automation opportunity and give you a concrete plan — whether you hire me or not.</p>
           <div class="cta-note">No commitment. No pitch deck. Just a conversation about what's possible.</div>
         </div>
-        <form id="leadForm" class="lead-form">
+        <form id="leadForm" class="lead-form" autocomplete="on">
           <div class="form-group">
-            <input type="text" id="name" name="name" required aria-required="true" autocomplete="name" placeholder=" ">
+            <input type="text" id="name" name="name" required aria-required="true" autocomplete="name" placeholder=" " aria-label="Your name">
             <label for="name">Your Name *</label>
           </div>
 
           <div class="form-group">
-            <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" placeholder=" ">
+            <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" placeholder=" " aria-label="Email address">
             <label for="email">Email Address *</label>
           </div>
 
@@ -564,7 +564,7 @@
           </div>
 
           <div class="form-group">
-            <textarea id="message" name="message" rows="4" placeholder=" " aria-describedby="message-hint"></textarea>
+            <textarea id="message" name="message" rows="4" placeholder=" " aria-describedby="message-hint" autocomplete="off"></textarea>
             <label for="message">Biggest operational bottleneck?</label>
             <small id="message-hint" class="form-hint">This helps me prepare for our call</small>
           </div>
