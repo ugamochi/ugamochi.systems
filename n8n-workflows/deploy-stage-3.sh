@@ -51,9 +51,16 @@ GSHEET_SHEET_NAME="${GSHEET_SHEET_NAME:-}"
 GSHEET_CREDENTIAL_ID="${GSHEET_CREDENTIAL_ID:-}"
 GSHEET_CREDENTIAL_NAME="${GSHEET_CREDENTIAL_NAME:-}"
 OPENAI_API_KEY="${OPENAI_API_KEY:-}"
+OPENROUTER_API_KEY="${OPENROUTER_API_KEY:-}"
 OPENAI_MODEL="${OPENAI_MODEL:-gpt-4o-mini}"
 OPENAI_API_URL="${OPENAI_API_URL:-https://api.openai.com/v1/chat/completions}"
 LLM_AUTH_MODE="${LLM_AUTH_MODE:-bearer}"
+LLM_API_KEY="${OPENAI_API_KEY:-}"
+
+# If using OpenRouter, prefer OPENROUTER_API_KEY when provided.
+if [[ "$OPENAI_API_URL" == *"openrouter.ai"* && -n "$OPENROUTER_API_KEY" ]]; then
+  LLM_API_KEY="$OPENROUTER_API_KEY"
+fi
 
 if [[ -z "$API_KEY" ]]; then
   echo "Error: N8N_API_KEY is required." >&2
@@ -84,16 +91,30 @@ if [[ "$LLM_AUTH_MODE" != "bearer" && "$LLM_AUTH_MODE" != "none" ]]; then
   exit 1
 fi
 
-if [[ "$LLM_AUTH_MODE" == "bearer" && -z "$OPENAI_API_KEY" ]]; then
+if [[ "$LLM_AUTH_MODE" == "bearer" && -z "$LLM_API_KEY" ]]; then
   cat >&2 <<'EOF'
-Error: OPENAI_API_KEY is required for Stage 3 lead scoring when LLM_AUTH_MODE=bearer.
+Error: API key is required for Stage 3 lead scoring when LLM_AUTH_MODE=bearer.
 
 Set in n8n-workflows/.env:
-  OPENAI_API_KEY=<your-openai-api-key>
+  OPENAI_API_KEY=<your-openai-compatible-api-key>
+Or for OpenRouter specifically:
+  OPENROUTER_API_KEY=<your-openrouter-api-key>
 Optional:
   OPENAI_MODEL=gpt-4o-mini
   OPENAI_API_URL=https://api.openai.com/v1/chat/completions
   LLM_AUTH_MODE=bearer
+EOF
+  exit 1
+fi
+
+if [[ "$LLM_AUTH_MODE" == "bearer" && "$OPENAI_API_URL" == *"openrouter.ai"* && -z "$OPENROUTER_API_KEY" && "$OPENAI_API_KEY" != sk-or-* ]]; then
+  cat >&2 <<'EOF'
+Error: OpenRouter URL detected but no OpenRouter key found.
+
+Set one of:
+  OPENROUTER_API_KEY=sk-or-...
+or
+  OPENAI_API_KEY=sk-or-...
 EOF
   exit 1
 fi
@@ -145,7 +166,7 @@ else
       --arg sheet "$GSHEET_SHEET_NAME" \
       --arg gsheet_id "$GSHEET_CREDENTIAL_ID" \
       --arg gsheet_name "$GSHEET_CREDENTIAL_NAME" \
-      --arg openai_key "$OPENAI_API_KEY" \
+      --arg llm_key "$LLM_API_KEY" \
       --arg openai_model "$OPENAI_MODEL" \
       --arg openai_url "$OPENAI_API_URL" '
         .nodes |= map(
@@ -158,7 +179,7 @@ else
             .parameters.url = $openai_url
             | .parameters.headerParameters.parameters |= map(
                 if .name == "Authorization" then
-                  .value = ("=Bearer " + $openai_key)
+                  .value = ("=Bearer " + $llm_key)
                 else
                   .
                 end

@@ -10,6 +10,7 @@
 - `deploy-stage-3.sh`: Stage 3 deploy script with Google Sheets + OpenAI placeholders injected from env.
 - `test-webhook.sh`: Webhook smoke test payload sender.
 - `verify-stage-3.sh`: Reads latest execution and prints AI scoring + Sheets node status.
+- `session-2026-02-16-stage3-provider-instructions.md`: Stage 3 hardening rules + provider switch playbook.
 
 ## Deploy to Render n8n (API)
 
@@ -105,6 +106,7 @@ Notes:
    - `GSHEET_CREDENTIAL_NAME`
 2. Add OpenAI variables to `n8n-workflows/.env`:
    - `OPENAI_API_KEY` (required when `LLM_AUTH_MODE=bearer`)
+   - `OPENROUTER_API_KEY` (optional; preferred for OpenRouter URL)
    - `OPENAI_MODEL` (optional, default `gpt-4o-mini`)
    - `OPENAI_API_URL` (optional, default `https://api.openai.com/v1/chat/completions`)
    - `LLM_AUTH_MODE` (optional, `bearer` or `none`, default `bearer`)
@@ -145,6 +147,15 @@ Example config:
 OPENAI_MODEL=your-provider-model-id
 OPENAI_API_URL=https://your-provider.example.com/v1/chat/completions
 OPENAI_API_KEY=your_provider_key
+LLM_AUTH_MODE=bearer
+```
+
+OpenRouter free (cloud-hosted, no local model dependency):
+
+```dotenv
+OPENROUTER_API_KEY=sk-or-...
+OPENAI_MODEL=openrouter/free
+OPENAI_API_URL=https://openrouter.ai/api/v1/chat/completions
 LLM_AUTH_MODE=bearer
 ```
 
