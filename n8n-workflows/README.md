@@ -4,9 +4,12 @@
 
 - `stage-1-basic.json`: Stage 1 lead form workflow JSON.
 - `stage-2-sheets.json`: Stage 2 workflow variant with Google Sheets logging branch.
+- `stage-3-scoring.json`: Stage 3 workflow variant with AI scoring + Sheets logging.
 - `deploy-stage-1.sh`: API-based deploy script (update/create + activate).
 - `deploy-stage-2.sh`: Stage 2 deploy script with Google Sheets placeholders injected from env.
+- `deploy-stage-3.sh`: Stage 3 deploy script with Google Sheets + OpenAI placeholders injected from env.
 - `test-webhook.sh`: Webhook smoke test payload sender.
+- `verify-stage-3.sh`: Reads latest execution and prints AI scoring + Sheets node status.
 
 ## Deploy to Render n8n (API)
 
@@ -92,3 +95,41 @@ Notes:
 - If `GSHEET_CREDENTIAL_ID` is missing, deploy now fails fast to prevent false-positive deployments.
 - In your target sheet, create headers matching workflow fields:
   - `timestamp`, `name`, `email`, `company`, `message`, `source`, `userAgent`, `referrer`
+
+## Stage 3 (AI Lead Scoring)
+
+1. Keep Stage 2 variables configured:
+   - `GSHEET_DOCUMENT_ID`
+   - `GSHEET_SHEET_NAME`
+   - `GSHEET_CREDENTIAL_ID`
+   - `GSHEET_CREDENTIAL_NAME`
+2. Add OpenAI variables to `n8n-workflows/.env`:
+   - `OPENAI_API_KEY` (required)
+   - `OPENAI_MODEL` (optional, default `gpt-4o-mini`)
+   - `OPENAI_API_URL` (optional, default `https://api.openai.com/v1/chat/completions`)
+3. Deploy Stage 3:
+
+```bash
+bash n8n-workflows/deploy-stage-3.sh
+```
+
+4. Send test lead:
+
+```bash
+bash n8n-workflows/test-webhook.sh
+```
+
+5. Verify latest execution scoring outputs:
+
+```bash
+bash n8n-workflows/verify-stage-3.sh
+```
+
+Notes:
+
+- Stage 3 adds nodes:
+  - `score lead with ai` (HTTP request to OpenAI)
+  - `create scored fields` (parses score/priority/reason and preserves lead fields)
+- AI branch uses `continueOnFail` so mail flow still runs if scoring fails.
+- Add these columns in your target sheet to store Stage 3 output:
+  - `leadScore`, `leadPriority`, `leadScoreReason`, `aiScoringStatus`, `aiScoringError`
