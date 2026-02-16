@@ -11,9 +11,23 @@
 - `deploy-stage-3.sh`: Stage 3 deploy script with Google Sheets + OpenAI placeholders injected from env.
 - `deploy-stage-4.sh`: Stage 4 deploy script (same env as Stage 3) for personalized response workflow.
 - `test-webhook.sh`: Webhook smoke test payload sender.
-- `verify-stage-3.sh`: Reads latest execution and prints AI scoring + Sheets node status.
-- `verify-stage-4.sh`: Reads latest execution and prints scoring + response strategy + client email + sheets status.
+- `verify-stage-3.sh`: Reads latest execution for the target workflow and prints AI scoring + Sheets node status.
+- `verify-stage-4.sh`: Reads latest execution for the target workflow and prints scoring + response strategy + client email + sheets status.
 - `session-2026-02-16-stage3-provider-instructions.md`: Stage 3 hardening rules + provider switch playbook.
+- `CLIENT_ONE_PAGER.md`: Short client-facing explanation of the system and business value.
+- `CLIENT_IMPLEMENTATION_PLAYBOOK.md`: Best-practice guide for building this system in client-owned accounts.
+
+## Client Docs
+
+- Use `CLIENT_ONE_PAGER.md` when pitching or explaining the offer to non-technical clients.
+- Use `CLIENT_IMPLEMENTATION_PLAYBOOK.md` when delivering the build with client-owned tools, credentials, and billing.
+
+## Client Build Best Practice
+
+- Build in client-owned accounts from day 1 (n8n, Google, AI provider, alert channels).
+- Keep secrets only in `n8n-workflows/.env` (local) and n8n credentials (server-side), never in JSON exports.
+- Promote in order: Stage 1 -> Stage 2 -> Stage 3 -> Stage 4, with verification at each stage.
+- Keep rollback artifacts: last known-good workflow JSON and deploy script output.
 
 ## Deploy to Render n8n (API)
 
@@ -131,6 +145,12 @@ bash n8n-workflows/test-webhook.sh
 bash n8n-workflows/verify-stage-3.sh
 ```
 
+Optional override (if your workflow name differs from JSON):
+
+```bash
+N8N_WORKFLOW_NAME='your workflow name' bash n8n-workflows/verify-stage-3.sh
+```
+
 Notes:
 
 - Stage 3 adds nodes:
@@ -215,6 +235,12 @@ bash n8n-workflows/test-webhook.sh
 bash n8n-workflows/verify-stage-4.sh
 ```
 
+Optional override (if your workflow name differs from JSON):
+
+```bash
+N8N_WORKFLOW_NAME='your workflow name' bash n8n-workflows/verify-stage-4.sh
+```
+
 Notes:
 
 - Stage 4 adds `create response fields` node after scoring.
@@ -238,3 +264,4 @@ Notes:
   - If `HOT_ALERT_WEBHOOK_URL` is set and lead is `hot`, n8n posts lead summary JSON to that webhook.
 - Response metadata is appended and can be logged to Sheets if matching columns exist.
 - `verify-stage-4.sh` now prints security fields (`securityAction`, `securityReason`, `securityRiskScore`, `clientIp`) plus node-level skip/success states.
+- If `securityAction=block`, `<skipped>` on scoring/client-email nodes is expected behavior.

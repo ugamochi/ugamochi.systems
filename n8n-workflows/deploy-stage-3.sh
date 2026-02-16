@@ -182,12 +182,19 @@ else
             | .credentials.googleSheetsOAuth2Api.name = $gsheet_name
           elif .name == "score lead with ai" then
             .parameters.url = $openai_url
-            | .parameters.headerParameters.parameters |= map(
-                if .name == "Authorization" then
-                  .value = ("=Bearer " + $llm_key)
-                else
-                  .
-                end
+            | .parameters.headerParameters.parameters |= (
+                map(
+                  if .name == "Authorization" then
+                    .value = ("=Bearer " + $llm_key)
+                  else
+                    .
+                  end
+                )
+                | if any(.name == "Authorization") then
+                    .
+                  else
+                    . + [{"name":"Authorization","value":("=Bearer " + $llm_key)}]
+                  end
               )
             | .parameters.jsonBody |= gsub("__OPENAI_MODEL__"; $openai_model)
           else

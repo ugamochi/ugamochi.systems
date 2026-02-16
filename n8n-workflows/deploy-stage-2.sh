@@ -103,6 +103,11 @@ fi
 
 AUTH_HEADER=("X-N8N-API-KEY: $API_KEY")
 JSON_HEADER=("Content-Type: application/json")
+CURL_RETRY_ARGS=(--retry 6 --retry-all-errors --retry-delay 2 --connect-timeout 20 --max-time 180)
+
+api_call_retry() {
+  curl --fail-with-body -sS "${CURL_RETRY_ARGS[@]}" "$@"
+}
 
 WORKFLOW_NAME="$(jq -r '.name' "$WORKFLOW_FILE")"
 PAYLOAD="$(
@@ -126,11 +131,11 @@ PAYLOAD="$(
 )"
 
 echo "Checking API access at $BASE_URL ..."
-LIST_RESPONSE="$(
-  curl --fail-with-body -sS \
+LIST_RESPONSE="$({
+  api_call_retry \
     -H "${AUTH_HEADER[0]}" \
     "$BASE_URL/api/v1/workflows"
-)"
+})"
 
 WORKFLOW_ID="$(
   echo "$LIST_RESPONSE" | jq -r --arg name "$WORKFLOW_NAME" '
@@ -146,13 +151,13 @@ WORKFLOW_ID="$(
 
 if [[ -z "$WORKFLOW_ID" ]]; then
   echo "Workflow '$WORKFLOW_NAME' not found. Creating it ..."
-  CREATE_RESPONSE="$(
-    curl --fail-with-body -sS -X POST \
+  CREATE_RESPONSE="$({
+    api_call_retry -X POST \
       -H "${AUTH_HEADER[0]}" \
       -H "${JSON_HEADER[0]}" \
       "$BASE_URL/api/v1/workflows" \
       -d "$PAYLOAD"
-  )"
+  })"
   WORKFLOW_ID="$(echo "$CREATE_RESPONSE" | jq -r '.data.id // .id // empty')"
   if [[ -z "$WORKFLOW_ID" ]]; then
     echo "Error: could not read new workflow id from create response." >&2
@@ -161,18 +166,18 @@ if [[ -z "$WORKFLOW_ID" ]]; then
   echo "Created workflow id: $WORKFLOW_ID"
 else
   echo "Updating workflow '$WORKFLOW_NAME' (id: $WORKFLOW_ID) ..."
-  curl --fail-with-body -sS -X PUT \
+  api_call_retry -X PUT \
     -H "${AUTH_HEADER[0]}" \
     -H "${JSON_HEADER[0]}" \
     "$BASE_URL/api/v1/workflows/$WORKFLOW_ID" \
     -d "$PAYLOAD" >/dev/null
 fi
 
-WORKFLOW_RESPONSE="$(
-  curl --fail-with-body -sS \
+WORKFLOW_RESPONSE="$({
+  api_call_retry \
     -H "${AUTH_HEADER[0]}" \
     "$BASE_URL/api/v1/workflows/$WORKFLOW_ID"
-)"
+})"
 
 VERSION_ID="$(echo "$WORKFLOW_RESPONSE" | jq -r '.data.versionId // .versionId // empty')"
 if [[ -z "$VERSION_ID" ]]; then
@@ -181,7 +186,7 @@ if [[ -z "$VERSION_ID" ]]; then
 fi
 
 echo "Activating workflow id $WORKFLOW_ID with version $VERSION_ID ..."
-curl --fail-with-body -sS -X POST \
+api_call_retry -X POST \
   -H "${AUTH_HEADER[0]}" \
   -H "${JSON_HEADER[0]}" \
   "$BASE_URL/api/v1/workflows/$WORKFLOW_ID/activate" \

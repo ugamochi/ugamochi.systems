@@ -43,6 +43,8 @@ fi
 
 BASE_URL="${N8N_BASE_URL:-https://n8n-service-uwaf.onrender.com}"
 API_KEY="${N8N_API_KEY:-}"
+WORKFLOW_FILE="${N8N_WORKFLOW_FILE:-$SCRIPT_DIR/stage-3-scoring.json}"
+WORKFLOW_NAME="${N8N_WORKFLOW_NAME:-}"
 
 if [[ -z "$API_KEY" ]]; then
   echo "Error: N8N_API_KEY is required." >&2
@@ -54,24 +56,81 @@ if ! command -v jq >/dev/null 2>&1; then
   exit 1
 fi
 
-LATEST_ID=$(curl -sS -H "X-N8N-API-KEY: $API_KEY" -H 'Cache-Control: no-cache' "$BASE_URL/api/v1/executions?limit=1" | jq -r '.data[0].id // empty')
+if [[ -z "$WORKFLOW_NAME" && -f "$WORKFLOW_FILE" ]]; then
+  WORKFLOW_NAME="$(jq -r '.name // empty' "$WORKFLOW_FILE")"
+fi
+WORKFLOW_NAME="${WORKFLOW_NAME:-emails from pavel.systems}"
+
+fetch_json() {
+  local url="$1"
+  local attempts=8
+  local delay_seconds=2
+  local response=""
+  local i
+
+  for ((i=1; i<=attempts; i++)); do
+    response="$(curl -sS -H "X-N8N-API-KEY: $API_KEY" -H 'Cache-Control: no-cache' "$url" || true)"
+    if jq -e . >/dev/null 2>&1 <<< "$response"; then
+      printf '%s' "$response"
+      return 0
+    fi
+    sleep "$delay_seconds"
+  done
+
+  return 1
+}
+
+WF_LIST_JSON="$(fetch_json "$BASE_URL/api/v1/workflows" || true)"
+WORKFLOW_ID="$(
+  echo "$WF_LIST_JSON" | jq -r --arg name "$WORKFLOW_NAME" '
+    if type == "array" then
+      (.[] | select(.name == $name) | .id)
+    elif has("data") then
+      (.data[]? | select(.name == $name) | .id)
+    else
+      empty
+    end
+  ' | head -n1
+)"
+if [[ -z "$WORKFLOW_ID" ]]; then
+  echo "Error: workflow not found by name: $WORKFLOW_NAME" >&2
+  exit 1
+fi
+
+LIST_JSON="$(fetch_json "$BASE_URL/api/v1/executions?limit=100" || true)"
+LATEST_ID="$(
+  echo "$LIST_JSON" | jq -r --arg wf "$WORKFLOW_ID" '
+    if type == "array" then
+      (.[] | select((.workflowId | tostring) == $wf) | .id)
+    elif has("data") then
+      (.data[]? | select((.workflowId | tostring) == $wf) | .id)
+    else
+      empty
+    end
+  ' | head -n1
+)"
 if [[ -z "$LATEST_ID" ]]; then
-  echo "No executions found."
+  echo "No executions found for workflow '$WORKFLOW_NAME' (id: $WORKFLOW_ID)." >&2
   exit 1
 fi
 
 EXEC_JSON=$(mktemp)
-curl -sS -H "X-N8N-API-KEY: $API_KEY" "$BASE_URL/api/v1/executions/$LATEST_ID?includeData=true" > "$EXEC_JSON"
+if ! fetch_json "$BASE_URL/api/v1/executions/$LATEST_ID?includeData=true" > "$EXEC_JSON"; then
+  echo "Error: could not fetch execution details." >&2
+  rm -f "$EXEC_JSON"
+  exit 1
+fi
 
 echo "Execution ID: $LATEST_ID"
+echo "Workflow Name: $WORKFLOW_NAME"
 jq -r '"Status: " + (.status|tostring), "Finished: " + (.finished|tostring), "Workflow ID: " + (.workflowId|tostring)' "$EXEC_JSON"
 
 echo ""
 echo "Score Node"
 jq -r '
-  .data.resultData.runData["score lead with ai"][0] as $r |
-  "Execution status: " + (($r.executionStatus // "<missing>")|tostring),
-  "Node error: " + (($r.error.message // $r.data.main[0][0].error.message // $r.data.main[0][0].json.error // "<none>")|tostring)
+  (.data.resultData.runData["score lead with ai"][0] // null) as $r |
+  "Execution status: " + ((if $r == null then "<skipped>" else ($r.executionStatus // "<missing>") end)|tostring),
+  "Node error: " + ((if $r == null then "<none>" else ($r.error.message // $r.data.main[0][0].error.message // $r.data.main[0][0].json.error // "<none>") end)|tostring)
 ' "$EXEC_JSON"
 
 echo ""
@@ -90,9 +149,9 @@ jq -r '
 echo ""
 echo "Sheets Node"
 jq -r '
-  .data.resultData.runData["log lead to sheets"][0] as $r |
-  "Execution status: " + (($r.executionStatus // "<missing>")|tostring),
-  "Node error: " + (($r.error.message // $r.data.main[0][0].error.message // $r.data.main[0][0].json.error // "<none>")|tostring)
+  (.data.resultData.runData["log lead to sheets"][0] // null) as $r |
+  "Execution status: " + ((if $r == null then "<skipped>" else ($r.executionStatus // "<missing>") end)|tostring),
+  "Node error: " + ((if $r == null then "<none>" else ($r.error.message // $r.data.main[0][0].error.message // $r.data.main[0][0].json.error // "<none>") end)|tostring)
 ' "$EXEC_JSON"
 
 rm -f "$EXEC_JSON"
