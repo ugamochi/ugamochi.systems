@@ -35,7 +35,6 @@
     })();
   </script>
   <link rel="stylesheet" href="../../css/styles.css">
-  <style id="service-theme-vars">:root { --accent: #16a34a; --accent-light: #4ade80; --accent-dim: rgba(22, 163, 74, 0.33); --accent-glow: rgba(22, 163, 74, 0.08); --hero-glow: rgba(22, 163, 74, 0.11); --accent-pale: rgba(22, 163, 74, 0.08); --accent-soft: rgba(22, 163, 74, 0.12); --chip-hover-bg: rgba(22, 163, 74, 0.1); --chip-hover-border: rgba(22, 163, 74, 0.24); --card-accent-shadow: 0 0 0 1px rgba(22, 163, 74, 0.24), 0 8px 32px rgba(22, 163, 74, 0.14); --faq-glow: rgba(22, 163, 74, 0.06); }</style>
   <script id="faq-schema-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can onboarding start from payment instead of contract?","acceptedAnswer":{"@type":"Answer","text":"Yes. Trigger sources are configured to match your actual sales workflow."}},{"@type":"Question","name":"Can we support multiple service lines?","acceptedAnswer":{"@type":"Answer","text":"Yes. Growth and Scale scopes include variant routing by deal type."}},{"@type":"Question","name":"Will this work with our PM tool?","acceptedAnswer":{"@type":"Answer","text":"Usually yes. Connectors are selected around your current stack."}},{"@type":"Question","name":"Who maintains it after launch?","acceptedAnswer":{"@type":"Answer","text":"Your team receives runbooks and handover sessions for independent operations."}}]}</script>
 </head>
 <body>
@@ -43,7 +42,7 @@
 
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="container">
-      <a href="../../index.html" class="nav-logo" aria-label="Pavel Ugamoti homepage">pavel<span>.</span>systems</a>
+      <a href="../../index.html" class="nav-logo" aria-label="Ugamochi Systems homepage">ugamochi<span>.</span>systems</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="../../index.html">Home</a></li>
         <li><a href="../../index.html#services">Services</a></li>
@@ -85,7 +84,7 @@
                 <a href="#contact" class="btn-primary" data-intent="send_project_details">Send Project Details</a>
                 <a href="../../book-discovery-call/?service=client-onboarding-automation" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
               </div>
-              <p class="service-note">Pricing range: Starter <strong>EUR 1,500-3,000</strong> · Growth <strong>EUR 3,500-6,500</strong> · Scale <strong>EUR 7,500+</strong>. Final quote after discovery.</p>
+              <p class="service-note">Starting prices: Starter <strong>EUR 1,500</strong> · Growth <strong>EUR 3,500</strong> · Custom <strong>EUR 7,500</strong>. Final quote after discovery.</p>
             </div>
 
             <aside class="service-rail">
@@ -198,44 +197,45 @@
       
 
         <section class="service-section service-anim" id="fit">
-          <div class="container service-grid-2">
-            <div class="fit-card">
-              <div class="section-label">Fit Check</div>
-              <h2 class="section-title">Who this is for</h2>
+          <div class="container">
+            <div class="section-label">Fit + Outcomes</div>
+            <h2 class="section-title">Who this system is for and what changes first</h2>
+            <article class="service-card-lite fit-outcomes-shell">
+              <p class="fit-intro">Use this system when these conditions are true, and skip it when they are not.</p>
               <div class="service-fit-grid">
-                <div>
-                  <h3 class="fit-heading">Good fit</h3>
+                <div class="fit-column">
+                  <h4 class="fit-heading">Good fit</h4>
                   <ul class="service-list">
                     <li>Agencies and service businesses onboarding clients weekly</li><li>Teams with frequent handoff errors between sales and delivery</li><li>Operators who need consistency across varied project types</li>
                   </ul>
                 </div>
-                <div>
-                  <h3 class="fit-heading">Probably not a fit</h3>
+                <div class="fit-column">
+                  <h4 class="fit-heading">Probably not a fit</h4>
                   <ul class="service-list fit-list-not">
                     <li>Teams without a defined onboarding checklist</li><li>Businesses with one-off, non-repeatable kickoff processes</li><li>Setups unwilling to assign ownership for onboarding stages</li>
                   </ul>
                 </div>
               </div>
-            </div>
-            <div id="outcomes">
-              <div class="section-label">Expected Outcomes</div>
-              <h2 class="section-title">What should improve in the first <em>90 days</em></h2>
-              <div class="service-outcome-grid">
-                
-                  <article class="service-outcome">
-                    <p>Reduced time from close to kickoff</p>
-                  </article>
-                
-                  <article class="service-outcome">
-                    <p>Improved first-week client experience</p>
-                  </article>
-                
-                  <article class="service-outcome">
-                    <p>Fewer internal handoff misses and rework cycles</p>
-                  </article>
-                
+              <div class="fit-outcomes-divider"></div>
+              <div class="fit-outcomes-block" id="outcomes">
+                <h3 class="fit-main-title">Expected outcomes in the first <em>90 days</em></h3>
+                <div class="service-outcome-grid">
+                  
+                    <article class="service-outcome">
+                      <p>Reduced time from close to kickoff</p>
+                    </article>
+                  
+                    <article class="service-outcome">
+                      <p>Improved first-week client experience</p>
+                    </article>
+                  
+                    <article class="service-outcome">
+                      <p>Fewer internal handoff misses and rework cycles</p>
+                    </article>
+                  
+                </div>
               </div>
-            </div>
+            </article>
           </div>
         </section>
       
@@ -316,7 +316,7 @@
               
                 <article class="package-card">
                   <div class="package-name">Starter</div>
-                  <div class="package-price">EUR 1,500-3,000</div>
+                  <div class="package-price">EUR 1,500</div>
                   <div class="package-meta">Typical timeline: 1 week</div>
                   <p class="package-for">Single onboarding track with basic automation</p>
                   <ul class="service-list package-list">
@@ -326,7 +326,7 @@
               
                 <article class="package-card">
                   <div class="package-name">Growth</div>
-                  <div class="package-price">EUR 3,500-6,500</div>
+                  <div class="package-price">EUR 3,500</div>
                   <div class="package-meta">Typical timeline: 2-3 weeks</div>
                   <p class="package-for">Multiple onboarding variants and document collection</p>
                   <ul class="service-list package-list">
@@ -335,8 +335,8 @@
                 </article>
               
                 <article class="package-card">
-                  <div class="package-name">Scale</div>
-                  <div class="package-price">EUR 7,500+</div>
+                  <div class="package-name">Custom</div>
+                  <div class="package-price">EUR 7,500</div>
                   <div class="package-meta">Typical timeline: 4+ weeks</div>
                   <p class="package-for">Mature operation requiring visibility + governance</p>
                   <ul class="service-list package-list">

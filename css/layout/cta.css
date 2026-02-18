@@ -30,7 +30,7 @@
 }
 
 .cta-text {
-  padding-top: 1rem;
+  padding-top: 0;
 }
 
 .cta-content h2 {
@@ -91,4 +91,3 @@
   border-color: rgba(220, 38, 38, 0.3);
   color: #dc2626;
 }
-

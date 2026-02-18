@@ -35,7 +35,6 @@
     })();
   </script>
   <link rel="stylesheet" href="../../css/styles.css">
-  <style id="service-theme-vars">:root { --accent: #0ea5e9; --accent-light: #38bdf8; --accent-dim: rgba(14, 165, 233, 0.34); --accent-glow: rgba(14, 165, 233, 0.09); --hero-glow: rgba(14, 165, 233, 0.11); --accent-pale: rgba(14, 165, 233, 0.08); --accent-soft: rgba(14, 165, 233, 0.12); --chip-hover-bg: rgba(14, 165, 233, 0.1); --chip-hover-border: rgba(14, 165, 233, 0.24); --card-accent-shadow: 0 0 0 1px rgba(14, 165, 233, 0.24), 0 8px 32px rgba(14, 165, 233, 0.14); --faq-glow: rgba(14, 165, 233, 0.06); }</style>
   <script id="faq-schema-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can this handle variable PDF formats?","acceptedAnswer":{"@type":"Answer","text":"Yes. Flows are designed per document family with fallback handling for unknown layouts."}},{"@type":"Question","name":"What happens on low confidence extraction?","acceptedAnswer":{"@type":"Answer","text":"Records are routed to exception review and blocked from auto-write until approved."}},{"@type":"Question","name":"Can we start small?","acceptedAnswer":{"@type":"Answer","text":"Yes. Starter scope is intentionally narrow for faster ROI and safer rollout."}},{"@type":"Question","name":"Can this feed our existing system?","acceptedAnswer":{"@type":"Answer","text":"Yes. Destination adapters are configured around your existing stack."}}]}</script>
 </head>
 <body>
@@ -43,7 +42,7 @@
 
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="container">
-      <a href="../../index.html" class="nav-logo" aria-label="Pavel Ugamoti homepage">pavel<span>.</span>systems</a>
+      <a href="../../index.html" class="nav-logo" aria-label="Ugamochi Systems homepage">ugamochi<span>.</span>systems</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="../../index.html">Home</a></li>
         <li><a href="../../index.html#services">Services</a></li>
@@ -85,7 +84,7 @@
                 <a href="#contact" class="btn-primary" data-intent="send_project_details">Send Project Details</a>
                 <a href="../../book-discovery-call/?service=document-intelligence-pdf-to-data" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
               </div>
-              <p class="service-note">Pricing range: Starter <strong>EUR 2,000-3,500</strong> · Growth <strong>EUR 4,500-7,500</strong> · Scale <strong>EUR 9,000+</strong>. Final quote after discovery.</p>
+              <p class="service-note">Starting prices: Starter <strong>EUR 2,000</strong> · Growth <strong>EUR 4,500</strong> · Custom <strong>EUR 9,000</strong>. Final quote after discovery.</p>
             </div>
 
             <aside class="service-rail">
@@ -198,44 +197,45 @@
       
 
         <section class="service-section service-anim" id="fit">
-          <div class="container service-grid-2">
-            <div class="fit-card">
-              <div class="section-label">Fit Check</div>
-              <h2 class="section-title">Who this is for</h2>
+          <div class="container">
+            <div class="section-label">Fit + Outcomes</div>
+            <h2 class="section-title">Who this system is for and what changes first</h2>
+            <article class="service-card-lite fit-outcomes-shell">
+              <p class="fit-intro">Use this system when these conditions are true, and skip it when they are not.</p>
               <div class="service-fit-grid">
-                <div>
-                  <h3 class="fit-heading">Good fit</h3>
+                <div class="fit-column">
+                  <h4 class="fit-heading">Good fit</h4>
                   <ul class="service-list">
                     <li>Operations teams processing recurring invoices, contracts, or intake PDFs</li><li>Back-office processes where accuracy and auditability matter</li><li>Businesses moving from manual handling to structured automation</li>
                   </ul>
                 </div>
-                <div>
-                  <h3 class="fit-heading">Probably not a fit</h3>
+                <div class="fit-column">
+                  <h4 class="fit-heading">Probably not a fit</h4>
                   <ul class="service-list fit-list-not">
                     <li>Teams with one-off document flows and no recurring volume</li><li>Cases with no clear destination schema</li><li>Workflows that skip human review entirely for low-confidence records</li>
                   </ul>
                 </div>
               </div>
-            </div>
-            <div id="outcomes">
-              <div class="section-label">Expected Outcomes</div>
-              <h2 class="section-title">What should improve in the first <em>90 days</em></h2>
-              <div class="service-outcome-grid">
-                
-                  <article class="service-outcome">
-                    <p>Faster document processing with predictable latency</p>
-                  </article>
-                
-                  <article class="service-outcome">
-                    <p>Lower human error rates before database/CRM write</p>
-                  </article>
-                
-                  <article class="service-outcome">
-                    <p>Operational visibility on failure and exception cases</p>
-                  </article>
-                
+              <div class="fit-outcomes-divider"></div>
+              <div class="fit-outcomes-block" id="outcomes">
+                <h3 class="fit-main-title">Expected outcomes in the first <em>90 days</em></h3>
+                <div class="service-outcome-grid">
+                  
+                    <article class="service-outcome">
+                      <p>Faster document processing with predictable latency</p>
+                    </article>
+                  
+                    <article class="service-outcome">
+                      <p>Lower human error rates before database/CRM write</p>
+                    </article>
+                  
+                    <article class="service-outcome">
+                      <p>Operational visibility on failure and exception cases</p>
+                    </article>
+                  
+                </div>
               </div>
-            </div>
+            </article>
           </div>
         </section>
       
@@ -316,7 +316,7 @@
               
                 <article class="package-card">
                   <div class="package-name">Starter</div>
-                  <div class="package-price">EUR 2,000-3,500</div>
+                  <div class="package-price">EUR 2,000</div>
                   <div class="package-meta">Typical timeline: 1-2 weeks</div>
                   <p class="package-for">One document family with controlled output schema</p>
                   <ul class="service-list package-list">
@@ -326,7 +326,7 @@
               
                 <article class="package-card">
                   <div class="package-name">Growth</div>
-                  <div class="package-price">EUR 4,500-7,500</div>
+                  <div class="package-price">EUR 4,500</div>
                   <div class="package-meta">Typical timeline: 2-4 weeks</div>
                   <p class="package-for">Multiple document families and exception handling</p>
                   <ul class="service-list package-list">
@@ -335,8 +335,8 @@
                 </article>
               
                 <article class="package-card">
-                  <div class="package-name">Scale</div>
-                  <div class="package-price">EUR 9,000+</div>
+                  <div class="package-name">Custom</div>
+                  <div class="package-price">EUR 9,000</div>
                   <div class="package-meta">Typical timeline: 4+ weeks</div>
                   <p class="package-for">High-volume document operations with governance needs</p>
                   <ul class="service-list package-list">

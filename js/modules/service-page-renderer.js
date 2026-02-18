@@ -33,7 +33,6 @@ export function renderServicePage() {
     return;
   }
 
-  applyServiceTheme(service.theme);
   updateMeta(service);
 
   // Support both shell pages and pre-rendered static pages.
@@ -70,7 +69,6 @@ export function renderServiceDocument(service, options = {}) {
   const bookingHref = getBookingHref(service.slug, relativePrefix);
   const title = `${service.title} | Pavel Ugamoti`;
   const description = service.metaDescription || '';
-  const themeStyleTag = renderThemeStyleTag(service.theme);
   const faqSchemaTag = renderFaqSchemaScriptTag(service);
 
   return `<!DOCTYPE html>
@@ -110,7 +108,6 @@ export function renderServiceDocument(service, options = {}) {
     })();
   </script>
   <link rel="stylesheet" href="${relativePrefix}css/styles.css">
-${themeStyleTag}
 ${faqSchemaTag}
 </head>
 <body>
@@ -118,7 +115,7 @@ ${faqSchemaTag}
 
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="container">
-      <a href="${relativePrefix}index.html" class="nav-logo" aria-label="Pavel Ugamoti homepage">pavel<span>.</span>systems</a>
+      <a href="${relativePrefix}index.html" class="nav-logo" aria-label="Ugamochi Systems homepage">ugamochi<span>.</span>systems</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="${relativePrefix}index.html">Home</a></li>
         <li><a href="${relativePrefix}index.html#services">Services</a></li>
@@ -177,17 +174,6 @@ function detectSlugFromPath() {
   return segments[segments.length - 1];
 }
 
-function applyServiceTheme(theme) {
-  if (!theme) return;
-
-  const root = document.documentElement;
-  const variables = buildServiceThemeVariables(theme);
-
-  Object.entries(variables).forEach(([key, value]) => {
-    root.style.setProperty(key, value);
-  });
-}
-
 function updateMeta(service) {
   const title = `${service.title} | Pavel Ugamoti`;
   const description = service.metaDescription || '';
@@ -238,6 +224,10 @@ function setMetaByProperty(property, content) {
 }
 
 function renderHeroSection(service, bookingHref) {
+  const starterPrice = getStartingPrice(service.pricing.starter);
+  const growthPrice = getStartingPrice(service.pricing.growth);
+  const customPrice = getStartingPrice(service.pricing.scale);
+
   return `
     <section class="service-hero service-anim">
       <div class="container service-hero-grid">
@@ -255,7 +245,7 @@ function renderHeroSection(service, bookingHref) {
             <a href="#contact" class="btn-primary" data-intent="send_project_details">Send Project Details</a>
             <a href="${bookingHref}" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
           </div>
-          <p class="service-note">Pricing range: Starter <strong>${escapeHtml(service.pricing.starter)}</strong> · Growth <strong>${escapeHtml(service.pricing.growth)}</strong> · Scale <strong>${escapeHtml(service.pricing.scale)}</strong>. Final quote after discovery.</p>
+          <p class="service-note">Starting prices: Starter <strong>${escapeHtml(starterPrice)}</strong> · Growth <strong>${escapeHtml(growthPrice)}</strong> · Custom <strong>${escapeHtml(customPrice)}</strong>. Final quote after discovery.</p>
         </div>
 
         <aside class="service-rail">
@@ -310,15 +300,34 @@ function renderProblemSection(service) {
 function renderBlueprint(blueprint) {
   if (!blueprint) return '';
 
+  const modules = Array.isArray(blueprint.modules) ? blueprint.modules : [];
+  const phases = Array.isArray(blueprint.phases) ? blueprint.phases : [];
+
   return `
     <section class="service-section service-anim">
       <div class="container">
         <div class="section-label">System Blueprint</div>
         <h2 class="section-title">${escapeHtml(blueprint.title)}</h2>
         <p class="section-desc">${escapeHtml(blueprint.description)}</p>
-        <figure class="service-image">
-          <img src="${escapeHtml(blueprint.image)}" alt="${escapeHtml(blueprint.alt)}">
-        </figure>
+        ${modules.length ? `
+          <div class="service-grid-4 blueprint-grid">
+            ${modules.map((item, index) => `
+              <article class="service-card-lite blueprint-module">
+                <div class="blueprint-module-key">${String(index + 1).padStart(2, '0')}</div>
+                <h3 class="blueprint-module-title">${escapeHtml(item.title)}</h3>
+                <p>${escapeHtml(item.text)}</p>
+              </article>
+            `).join('')}
+          </div>
+        ` : ''}
+        ${phases.length ? `
+          <div class="service-pricing-note blueprint-phase-note">
+            <strong>Rollout Order:</strong>
+            <div class="service-badges blueprint-phase-badges">
+              ${phases.map((phase) => `<span>${escapeHtml(phase)}</span>`).join('')}
+            </div>
+          </div>
+        ` : ''}
       </div>
     </section>
   `;
@@ -349,36 +358,37 @@ function renderProcessSection(service) {
 function renderFitOutcomesSection(service) {
   return `
     <section class="service-section service-anim" id="fit">
-      <div class="container service-grid-2">
-        <div class="fit-card">
-          <div class="section-label">Fit Check</div>
-          <h2 class="section-title">${escapeHtml(service.fit.title)}</h2>
+      <div class="container">
+        <div class="section-label">Fit + Outcomes</div>
+        <h2 class="section-title">Who this system is for and what changes first</h2>
+        <article class="service-card-lite fit-outcomes-shell">
+          <p class="fit-intro">Use this system when these conditions are true, and skip it when they are not.</p>
           <div class="service-fit-grid">
-            <div>
-              <h3 class="fit-heading">Good fit</h3>
+            <div class="fit-column">
+              <h4 class="fit-heading">Good fit</h4>
               <ul class="service-list">
                 ${service.fit.for.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
               </ul>
             </div>
-            <div>
-              <h3 class="fit-heading">Probably not a fit</h3>
+            <div class="fit-column">
+              <h4 class="fit-heading">Probably not a fit</h4>
               <ul class="service-list fit-list-not">
                 ${service.fit.notFor.map((item) => `<li>${escapeHtml(item)}</li>`).join('')}
               </ul>
             </div>
           </div>
-        </div>
-        <div id="outcomes">
-          <div class="section-label">Expected Outcomes</div>
-          <h2 class="section-title">What should improve in the first <em>90 days</em></h2>
-          <div class="service-outcome-grid">
-            ${service.outcomes.map((item) => `
-              <article class="service-outcome">
-                <p>${escapeHtml(item)}</p>
-              </article>
-            `).join('')}
+          <div class="fit-outcomes-divider"></div>
+          <div class="fit-outcomes-block" id="outcomes">
+            <h3 class="fit-main-title">Expected outcomes in the first <em>90 days</em></h3>
+            <div class="service-outcome-grid">
+              ${service.outcomes.map((item) => `
+                <article class="service-outcome">
+                  <p>${escapeHtml(item)}</p>
+                </article>
+              `).join('')}
+            </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   `;
@@ -448,8 +458,8 @@ function renderPackagesSection(service) {
         <div class="package-grid">
           ${service.packages.map((item) => `
             <article class="package-card">
-              <div class="package-name">${escapeHtml(item.name)}</div>
-              <div class="package-price">${escapeHtml(item.price)}</div>
+              <div class="package-name">${escapeHtml(normalizePackageName(item.name))}</div>
+              <div class="package-price">${escapeHtml(getStartingPrice(item.price))}</div>
               <div class="package-meta">Typical timeline: ${escapeHtml(item.timeline)}</div>
               <p class="package-for">${escapeHtml(item.bestFor)}</p>
               <ul class="service-list package-list">
@@ -599,36 +609,21 @@ function renderFaqSchemaScriptTag(service) {
   return `  <script id="faq-schema-jsonld" type="application/ld+json">${safeJsonForScript(schema)}</script>`;
 }
 
-function renderThemeStyleTag(theme) {
-  const variables = buildServiceThemeVariables(theme);
-  const keys = Object.keys(variables);
-  if (!keys.length) return '';
-
-  const cssBody = keys.map((key) => `${key}: ${variables[key]};`).join(' ');
-  return `  <style id="service-theme-vars">:root { ${cssBody} }</style>`;
-}
-
-function buildServiceThemeVariables(theme) {
-  if (!theme) return {};
-
-  return {
-    '--accent': theme.accent,
-    '--accent-light': theme.accentLight,
-    '--accent-dim': theme.accentDim,
-    '--accent-glow': theme.accentGlow,
-    '--hero-glow': theme.heroGlow,
-    '--accent-pale': withAlpha(theme.accent, 0.08),
-    '--accent-soft': withAlpha(theme.accent, 0.12),
-    '--chip-hover-bg': withAlpha(theme.accent, 0.1),
-    '--chip-hover-border': withAlpha(theme.accent, 0.24),
-    '--card-accent-shadow': `0 0 0 1px ${withAlpha(theme.accent, 0.24)}, 0 8px 32px ${withAlpha(theme.accent, 0.14)}`,
-    '--faq-glow': withAlpha(theme.accent, 0.06)
-  };
-}
-
 function splitIntoColumns(items) {
   const midpoint = Math.ceil(items.length / 2);
   return [items.slice(0, midpoint), items.slice(midpoint)];
+}
+
+function normalizePackageName(name) {
+  return String(name).trim().toLowerCase() === 'scale' ? 'Custom' : name;
+}
+
+function getStartingPrice(priceLabel) {
+  const source = String(priceLabel).trim();
+  if (!source) return '';
+
+  const lowerBound = source.split(/\s*[–-]\s*/)[0];
+  return lowerBound.replace(/\+$/, '').trim();
 }
 
 function renderNotFound() {
@@ -665,17 +660,4 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
-}
-
-function withAlpha(hex, alpha) {
-  if (!hex || !hex.startsWith('#')) return null;
-
-  const normalized = hex.length === 4
-    ? `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
-    : hex;
-
-  const r = parseInt(normalized.slice(1, 3), 16);
-  const g = parseInt(normalized.slice(3, 5), 16);
-  const b = parseInt(normalized.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }

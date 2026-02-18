@@ -35,7 +35,6 @@
     })();
   </script>
   <link rel="stylesheet" href="../../css/styles.css">
-  <style id="service-theme-vars">:root { --accent: #2563eb; --accent-light: #60a5fa; --accent-dim: rgba(37, 99, 235, 0.32); --accent-glow: rgba(37, 99, 235, 0.08); --hero-glow: rgba(37, 99, 235, 0.11); --accent-pale: rgba(37, 99, 235, 0.08); --accent-soft: rgba(37, 99, 235, 0.12); --chip-hover-bg: rgba(37, 99, 235, 0.1); --chip-hover-border: rgba(37, 99, 235, 0.24); --card-accent-shadow: 0 0 0 1px rgba(37, 99, 235, 0.24), 0 8px 32px rgba(37, 99, 235, 0.14); --faq-glow: rgba(37, 99, 235, 0.06); }</style>
   <script id="faq-schema-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can this run with our existing form?","acceptedAnswer":{"@type":"Answer","text":"Yes. Existing form endpoints can be preserved while adding scoring and routing layers."}},{"@type":"Question","name":"What happens if AI fails?","acceptedAnswer":{"@type":"Answer","text":"Fallback deterministic rules keep routing stable, so lead flow does not break."}},{"@type":"Question","name":"Can we add calendar booking?","acceptedAnswer":{"@type":"Answer","text":"Yes. Booking can be added by tier after qualification and anti-spam checks."}},{"@type":"Question","name":"Who owns the infrastructure?","acceptedAnswer":{"@type":"Answer","text":"You do. Accounts, credentials, billing, and data stay in client-controlled systems."}}]}</script>
 </head>
 <body>
@@ -43,7 +42,7 @@
 
   <nav class="nav" id="nav" aria-label="Main navigation">
     <div class="container">
-      <a href="../../index.html" class="nav-logo" aria-label="Pavel Ugamoti homepage">pavel<span>.</span>systems</a>
+      <a href="../../index.html" class="nav-logo" aria-label="Ugamochi Systems homepage">ugamochi<span>.</span>systems</a>
       <ul class="nav-links" id="navLinks">
         <li><a href="../../index.html">Home</a></li>
         <li><a href="../../index.html#services">Services</a></li>
@@ -85,7 +84,7 @@
                 <a href="#contact" class="btn-primary" data-intent="send_project_details">Send Project Details</a>
                 <a href="../../book-discovery-call/?service=ai-lead-pipeline-qualification-engine" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
               </div>
-              <p class="service-note">Pricing range: Starter <strong>EUR 1,500-2,500</strong> · Growth <strong>EUR 3,500-6,500</strong> · Scale <strong>EUR 7,500+</strong>. Final quote after discovery.</p>
+              <p class="service-note">Starting prices: Starter <strong>EUR 1,500</strong> · Growth <strong>EUR 3,500</strong> · Custom <strong>EUR 7,500</strong>. Final quote after discovery.</p>
             </div>
 
             <aside class="service-rail">
@@ -158,9 +157,43 @@
             <div class="section-label">System Blueprint</div>
             <h2 class="section-title">Capture -&gt; Guardrails -&gt; Score -&gt; Route</h2>
             <p class="section-desc">A modular intake architecture that blocks junk, classifies intent, and pushes each lead to the right action path.</p>
-            <figure class="service-image">
-              <img src="../../assets/images/services/lead-blueprint-2026.png" alt="Lead automation blueprint with intake, security guardrails, scoring tiers, and routing.">
-            </figure>
+            
+              <div class="service-grid-4 blueprint-grid">
+                
+                  <article class="service-card-lite blueprint-module">
+                    <div class="blueprint-module-key">01</div>
+                    <h3 class="blueprint-module-title">Capture</h3>
+                    <p>Collect every inquiry through secure webhook intake with normalized payloads and baseline anti-spam controls.</p>
+                  </article>
+                
+                  <article class="service-card-lite blueprint-module">
+                    <div class="blueprint-module-key">02</div>
+                    <h3 class="blueprint-module-title">Guardrails</h3>
+                    <p>Fail-closed validation blocks malformed or risky payloads before they reach your CRM or team inbox.</p>
+                  </article>
+                
+                  <article class="service-card-lite blueprint-module">
+                    <div class="blueprint-module-key">03</div>
+                    <h3 class="blueprint-module-title">Score</h3>
+                    <p>AI plus deterministic fallback rules classify leads into hot, warm, cold, and spam with predictable behavior.</p>
+                  </article>
+                
+                  <article class="service-card-lite blueprint-module">
+                    <div class="blueprint-module-key">04</div>
+                    <h3 class="blueprint-module-title">Route</h3>
+                    <p>High-intent leads trigger instant alerts, lower-intent paths get nurtured, and all activity is logged for ops.</p>
+                  </article>
+                
+              </div>
+            
+            
+              <div class="service-pricing-note blueprint-phase-note">
+                <strong>Rollout Order:</strong>
+                <div class="service-badges blueprint-phase-badges">
+                  <span>Foundation + Logging (Phases 1-2)</span><span>Qualification + Conversion (Phases 3-4)</span><span>Client-owned infrastructure from day one</span>
+                </div>
+              </div>
+            
           </div>
         </section>
       
@@ -209,44 +242,45 @@
       
 
         <section class="service-section service-anim" id="fit">
-          <div class="container service-grid-2">
-            <div class="fit-card">
-              <div class="section-label">Fit Check</div>
-              <h2 class="section-title">Who this is for</h2>
+          <div class="container">
+            <div class="section-label">Fit + Outcomes</div>
+            <h2 class="section-title">Who this system is for and what changes first</h2>
+            <article class="service-card-lite fit-outcomes-shell">
+              <p class="fit-intro">Use this system when these conditions are true, and skip it when they are not.</p>
               <div class="service-fit-grid">
-                <div>
-                  <h3 class="fit-heading">Good fit</h3>
+                <div class="fit-column">
+                  <h4 class="fit-heading">Good fit</h4>
                   <ul class="service-list">
                     <li>Teams with meaningful inbound volume and inconsistent response speed</li><li>Sales pipelines where lead quality varies sharply across channels</li><li>Founders who want client-owned automation, not a black-box vendor flow</li>
                   </ul>
                 </div>
-                <div>
-                  <h3 class="fit-heading">Probably not a fit</h3>
+                <div class="fit-column">
+                  <h4 class="fit-heading">Probably not a fit</h4>
                   <ul class="service-list fit-list-not">
                     <li>Businesses with near-zero inbound and no outreach strategy</li><li>Teams unwilling to define qualification criteria</li><li>Setups that require unreviewed full-autonomous outbound messaging</li>
                   </ul>
                 </div>
               </div>
-            </div>
-            <div id="outcomes">
-              <div class="section-label">Expected Outcomes</div>
-              <h2 class="section-title">What should improve in the first <em>90 days</em></h2>
-              <div class="service-outcome-grid">
-                
-                  <article class="service-outcome">
-                    <p>Faster speed-to-lead and higher appointment conversion</p>
-                  </article>
-                
-                  <article class="service-outcome">
-                    <p>Reduced sales time spent on low-intent inquiries</p>
-                  </article>
-                
-                  <article class="service-outcome">
-                    <p>Clear priority routing across channels and owners</p>
-                  </article>
-                
+              <div class="fit-outcomes-divider"></div>
+              <div class="fit-outcomes-block" id="outcomes">
+                <h3 class="fit-main-title">Expected outcomes in the first <em>90 days</em></h3>
+                <div class="service-outcome-grid">
+                  
+                    <article class="service-outcome">
+                      <p>Faster speed-to-lead and higher appointment conversion</p>
+                    </article>
+                  
+                    <article class="service-outcome">
+                      <p>Reduced sales time spent on low-intent inquiries</p>
+                    </article>
+                  
+                    <article class="service-outcome">
+                      <p>Clear priority routing across channels and owners</p>
+                    </article>
+                  
+                </div>
               </div>
-            </div>
+            </article>
           </div>
         </section>
       
@@ -327,7 +361,7 @@
               
                 <article class="package-card">
                   <div class="package-name">Starter</div>
-                  <div class="package-price">EUR 1,500-2,500</div>
+                  <div class="package-price">EUR 1,500</div>
                   <div class="package-meta">Typical timeline: 5-7 days</div>
                   <p class="package-for">Reliable lead capture and basic triage</p>
                   <ul class="service-list package-list">
@@ -337,7 +371,7 @@
               
                 <article class="package-card">
                   <div class="package-name">Growth</div>
-                  <div class="package-price">EUR 3,500-6,500</div>
+                  <div class="package-price">EUR 3,500</div>
                   <div class="package-meta">Typical timeline: 2-3 weeks</div>
                   <p class="package-for">Qualification + conversion automation</p>
                   <ul class="service-list package-list">
@@ -346,8 +380,8 @@
                 </article>
               
                 <article class="package-card">
-                  <div class="package-name">Scale</div>
-                  <div class="package-price">EUR 7,500+</div>
+                  <div class="package-name">Custom</div>
+                  <div class="package-price">EUR 7,500</div>
                   <div class="package-meta">Typical timeline: 4+ weeks</div>
                   <p class="package-for">Multi-channel + advanced monitoring</p>
                   <ul class="service-list package-list">

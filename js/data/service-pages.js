@@ -36,8 +36,29 @@ export const servicePages = {
       title: 'Capture -> Guardrails -> Score -> Route',
       description:
         'A modular intake architecture that blocks junk, classifies intent, and pushes each lead to the right action path.',
-      image: '../../assets/images/services/lead-blueprint-2026.png',
-      alt: 'Lead automation blueprint with intake, security guardrails, scoring tiers, and routing.'
+      modules: [
+        {
+          title: 'Capture',
+          text: 'Collect every inquiry through secure webhook intake with normalized payloads and baseline anti-spam controls.'
+        },
+        {
+          title: 'Guardrails',
+          text: 'Fail-closed validation blocks malformed or risky payloads before they reach your CRM or team inbox.'
+        },
+        {
+          title: 'Score',
+          text: 'AI plus deterministic fallback rules classify leads into hot, warm, cold, and spam with predictable behavior.'
+        },
+        {
+          title: 'Route',
+          text: 'High-intent leads trigger instant alerts, lower-intent paths get nurtured, and all activity is logged for ops.'
+        }
+      ],
+      phases: [
+        'Foundation + Logging (Phases 1-2)',
+        'Qualification + Conversion (Phases 3-4)',
+        'Client-owned infrastructure from day one'
+      ]
     },
     processTitle: 'Production rollout in 4 phases',
     process: [
