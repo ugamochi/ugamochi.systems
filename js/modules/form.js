@@ -1,5 +1,5 @@
 const WEBHOOK_URL = 'https://n8n-service-uwaf.onrender.com/webhook/lead-form';
-const REQUEST_TIMEOUT_MS = 10000;
+const REQUEST_TIMEOUT_MS = 60000;
 
 export function initForm() {
   const leadForm = document.getElementById('leadForm');
@@ -66,13 +66,31 @@ export function initForm() {
 
       const response = await fetch(WEBHOOK_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(formData),
-        signal: controller?.signal
+        signal: controller?.signal,
+        mode: 'cors'
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', [...response.headers.entries()]);
+
       if (!response.ok) {
-        throw new Error(`Server returned ${response.status}`);
+        const errorText = await response.text().catch(() => 'Unknown error');
+        console.error('Server error response:', errorText);
+        throw new Error(`Server returned ${response.status}: ${errorText}`);
+      }
+
+      // Try to parse response
+      let responseData;
+      try {
+        responseData = await response.json();
+        console.log('Response data:', responseData);
+      } catch (e) {
+        console.warn('Could not parse JSON response, treating as success');
       }
 
       setStatus('success', '✓ Thanks! I\'ll review your request and reach out within 24 hours.');
@@ -83,13 +101,21 @@ export function initForm() {
       }
     } catch (error) {
       console.error('Form submission error:', error);
+      console.error('Error details:', {
+        name: error?.name,
+        message: error?.message,
+        stack: error?.stack
+      });
 
       if (error instanceof Error && error.name === 'AbortError') {
         setStatus('error', '⚠️ Request timed out. Please try again or email me directly at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
       } else if (error instanceof Error && error.message.includes('webhook not configured')) {
         setStatus('error', '⚠️ Form backend not yet configured. Please contact me at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
+      } else if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        setStatus('error', '⚠️ Network error or CORS issue. Please email me directly at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
       } else {
-        setStatus('error', '⚠️ Submission failed. Please email me directly at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
+        const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+        setStatus('error', `⚠️ Submission failed: ${errorMsg}. Please email me directly at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
       }
     } finally {
       if (timeoutId !== null) window.clearTimeout(timeoutId);
