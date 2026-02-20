@@ -1,9 +1,16 @@
-export function initAnimations() {
-// ─── GSAP Animations (respects reduced motion) ───
-const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+function showRevealFallback() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+}
 
-if (!prefersReduced && hasGsap) {
+export function initAnimations() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+
+  if (!prefersReduced && hasGsap) {
+  try {
   window.gsap.registerPlugin(window.ScrollTrigger);
 
   // Kill CSS reveal system — GSAP takes over
@@ -274,11 +281,12 @@ if (!prefersReduced && hasGsap) {
     });
   });
 
-} else {
-  // Reduced motion: make everything visible instantly
-  document.querySelectorAll('.reveal').forEach(el => {
-    el.style.opacity = 1;
-    el.style.transform = 'none';
-  });
+  window.ScrollTrigger?.refresh?.();
+} catch (err) {
+  console.warn('[animations] GSAP/ScrollTrigger failed, showing content', err);
+  showRevealFallback();
+}
+  } else {
+  showRevealFallback();
 }
 }

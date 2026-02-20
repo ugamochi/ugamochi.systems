@@ -29,6 +29,10 @@
 .reveal.visible > div > :nth-child(5) { animation-delay: 0.32s; }
 .reveal.visible > div > :nth-child(6) { animation-delay: 0.40s; }
 
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}
+
 /* Skip to content (a11y) */
 .skip-link {
   position: absolute;
