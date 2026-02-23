@@ -1,5 +1,6 @@
-const WEBHOOK_URL = 'https://n8n-service-uwaf.onrender.com/webhook/lead-form';
+const DEFAULT_WEBHOOK_URL = 'https://n8n-service-uwaf.onrender.com/webhook/lead-form';
 const REQUEST_TIMEOUT_MS = 60000;
+const CONTACT_EMAIL = 'ugamochi.pavel@gmail.com';
 
 export function initForm() {
   const leadForm = document.getElementById('leadForm');
@@ -22,7 +23,7 @@ export function initForm() {
   const setStatus = (status, messageHtml) => {
     if (!formStatus) return;
     formStatus.className = `form-status ${status}`;
-    formStatus.innerHTML = messageHtml;
+    formStatus.textContent = messageHtml;
     formStatus.style.display = 'block';
   };
 
@@ -30,7 +31,6 @@ export function initForm() {
     event.preventDefault();
 
     if (honeypotInput?.value?.trim()) {
-      console.log('Bot detected via honeypot field');
       return;
     }
 
@@ -57,16 +57,16 @@ export function initForm() {
     const timeoutId = controller
       ? window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
       : null;
+    const webhookUrl = getConfiguredWebhookUrl();
 
     try {
-      if (!WEBHOOK_URL || WEBHOOK_URL.startsWith('YOUR_')) {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+      if (!webhookUrl || webhookUrl.startsWith('YOUR_')) {
         throw new Error('n8n webhook not configured yet');
       }
 
-      const response = await fetch(WEBHOOK_URL, {
+      const response = await fetch(webhookUrl, {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
@@ -75,47 +75,38 @@ export function initForm() {
         mode: 'cors'
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', [...response.headers.entries()]);
-
       if (!response.ok) {
-        const errorText = await response.text().catch(() => 'Unknown error');
-        console.error('Server error response:', errorText);
-        throw new Error(`Server returned ${response.status}: ${errorText}`);
+        if (response.status >= 500) {
+          throw new Error('Lead webhook temporarily unavailable');
+        }
+        throw new Error(`Lead webhook rejected the request (${response.status})`);
       }
 
-      // Try to parse response
-      let responseData;
-      try {
-        responseData = await response.json();
-        console.log('Response data:', responseData);
-      } catch (e) {
-        console.warn('Could not parse JSON response, treating as success');
-      }
+      setStatus('success', 'Thanks! I will review your request and reach out within 24 hours.');
 
-      setStatus('success', '✓ Thanks! I\'ll review your request and reach out within 24 hours.');
+      const hiddenValues = new Map(
+        Array.from(leadForm.querySelectorAll('input[type="hidden"][name]')).map((input) => [input.name, input.value])
+      );
       leadForm.reset();
+      hiddenValues.forEach((value, name) => {
+        const hiddenInput = leadForm.querySelector(`input[type="hidden"][name="${name}"]`);
+        if (hiddenInput) hiddenInput.value = value;
+      });
 
       if (typeof window.plausible === 'function') {
         window.plausible('Lead Submitted', { props: { company: formData.company || 'none' } });
       }
     } catch (error) {
-      console.error('Form submission error:', error);
-      console.error('Error details:', {
-        name: error?.name,
-        message: error?.message,
-        stack: error?.stack
-      });
-
       if (error instanceof Error && error.name === 'AbortError') {
-        setStatus('error', '⚠️ Request timed out. Please try again or email me directly at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
+        setStatus('error', `Request timed out. Please try again or email ${CONTACT_EMAIL}.`);
       } else if (error instanceof Error && error.message.includes('webhook not configured')) {
-        setStatus('error', '⚠️ Form backend not yet configured. Please contact me at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
+        setStatus('error', `Form backend is not configured yet. Please contact ${CONTACT_EMAIL}.`);
       } else if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
-        setStatus('error', '⚠️ Network error or CORS issue. Please email me directly at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
+        setStatus('error', `Network error or CORS issue. Please email ${CONTACT_EMAIL}.`);
+      } else if (error instanceof Error && error.message.includes('temporarily unavailable')) {
+        setStatus('error', `The form service is temporarily unavailable. Please try again later or email ${CONTACT_EMAIL}.`);
       } else {
-        const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-        setStatus('error', `⚠️ Submission failed: ${errorMsg}. Please email me directly at <a href="mailto:ugamochi.pavel@gmail.com" style="color: var(--warm); text-decoration: underline;">ugamochi.pavel@gmail.com</a>');
+        setStatus('error', `Submission failed. Please try again or email ${CONTACT_EMAIL}.`);
       }
     } finally {
       if (timeoutId !== null) window.clearTimeout(timeoutId);
@@ -134,4 +125,18 @@ export function initForm() {
       }
     });
   }
+}
+
+function getConfiguredWebhookUrl() {
+  const metaUrl = document
+    .querySelector('meta[name="lead-webhook-url"]')
+    ?.getAttribute('content')
+    ?.trim();
+
+  const windowConfig = window.__UGA_CONFIG__;
+  const globalUrl = windowConfig && typeof windowConfig === 'object'
+    ? String(windowConfig.leadWebhookUrl || '').trim()
+    : '';
+
+  return metaUrl || globalUrl || DEFAULT_WEBHOOK_URL;
 }

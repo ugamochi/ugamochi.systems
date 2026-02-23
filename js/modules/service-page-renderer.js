@@ -1,6 +1,6 @@
 import { getServicePage } from '../data/service-pages.js';
 
-const SITE_BASE_URL = 'https://ugamochi.github.io/ugamochi.systems/';
+const SITE_BASE_URL = 'https://ugamochi.systems/';
 const DEFAULT_OG_IMAGE = `${SITE_BASE_URL}assets/images/og-image.svg`;
 
 const SHARED_TESTIMONIALS = [
@@ -78,6 +78,7 @@ export function renderServiceDocument(service, options = {}) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
+  <meta name="lead-webhook-url" content="https://n8n-service-uwaf.onrender.com/webhook/lead-form">
   <meta name="author" content="Pavel Ugamoti">
   <meta name="color-scheme" content="light dark">
   <link rel="canonical" id="canonicalLink" href="${escapeHtml(canonicalUrl)}">
@@ -456,8 +457,8 @@ function renderPackagesSection(service) {
         <div class="section-label">Packages</div>
         <h2 class="section-title">Choose based on scope and operational complexity</h2>
         <div class="package-grid">
-          ${service.packages.map((item) => `
-            <article class="package-card">
+          ${service.packages.map((item, index) => `
+            <article class="package-card${index === 1 ? ' featured' : ''}">
               <div class="package-name">${escapeHtml(normalizePackageName(item.name))}</div>
               <div class="package-price">${escapeHtml(getStartingPrice(item.price))}</div>
               <div class="package-meta">Typical timeline: ${escapeHtml(item.timeline)}</div>

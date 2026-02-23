@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pavel Ugamoti — Agentic Architect</title>
   <meta name="description" content="I design AI systems that run your operations while you sleep. Agentic architecture for law firms, agencies, and service businesses.">
+  <meta name="lead-webhook-url" content="https://n8n-service-uwaf.onrender.com/webhook/lead-form">
 
   <!-- SEO & Branding -->
   <meta name="author" content="Pavel Ugamoti">
   <meta name="color-scheme" content="light dark">
-  <link rel="canonical" href="https://ugamochi.github.io/ugamochi.systems/">
+  <link rel="canonical" href="https://ugamochi.systems/">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236236f4'/%3E%3Ctext x='50' y='72' font-size='60' font-family='system-ui' font-weight='700' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
@@ -18,17 +19,17 @@
   <meta property="og:title" content="Pavel Ugamoti — Agentic Architect">
   <meta property="og:description" content="I design AI systems that run your operations while you sleep. Agentic architecture for law firms, agencies, and service businesses.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ugamochi.github.io/ugamochi.systems/">
-  <meta property="og:image" content="https://ugamochi.github.io/ugamochi.systems/assets/images/og-image.svg">
+  <meta property="og:url" content="https://ugamochi.systems/">
+  <meta property="og:image" content="https://ugamochi.systems/assets/images/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Pavel Ugamoti — Agentic Architect">
   <meta name="twitter:description" content="I design AI systems that run your operations while you sleep.">
-  <meta name="twitter:image" content="https://ugamochi.github.io/ugamochi.systems/assets/images/og-image.svg">
+  <meta name="twitter:image" content="https://ugamochi.systems/assets/images/og-image.svg">
 
-  <!-- Analytics (Plausible) — uncomment after adding ugamochi.github.io in Plausible dashboard -->
-  <!-- <script defer data-domain="ugamochi.github.io" src="https://plausible.io/js/script.js"></script> -->
+  <!-- Analytics (Plausible) — uncomment after adding ugamochi.systems in Plausible dashboard -->
+  <!-- <script defer data-domain="ugamochi.systems" src="https://plausible.io/js/script.js"></script> -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,7 +91,7 @@
           </a>
           <a href="#services" class="btn-ghost">See what I build &darr;</a>
         </div>
-        <div class="hero-proof" hidden>
+        <div class="hero-proof">
           <div class="hero-proof-item">
             <div class="hero-proof-num">40+</div>
             <div class="hero-proof-label">Systems deployed</div>
@@ -187,7 +188,7 @@
           </div>
         </div>
 
-        <div class="service-card" data-href="services/client-onboarding-automation/" tabindex="0" role="link" aria-label="Open Client Onboarding Automation service page" hidden>
+        <div class="service-card" data-href="services/client-onboarding-automation/" tabindex="0" role="link" aria-label="Open Client Onboarding Automation service page">
           <div class="service-num">03</div>
           <h3>Client Onboarding Automation</h3>
           <div class="service-metric">
@@ -224,7 +225,7 @@
           </div>
         </div>
 
-        <div class="service-card" data-href="services/automated-performance-reporting/" tabindex="0" role="link" aria-label="Open Automated Performance Reporting service page" hidden>
+        <div class="service-card" data-href="services/automated-performance-reporting/" tabindex="0" role="link" aria-label="Open Automated Performance Reporting service page">
           <div class="service-num">05</div>
           <h3>Automated Performance Reporting</h3>
           <div class="service-metric">
@@ -295,7 +296,7 @@
   </section>
 
   <!-- ═══════════ RESULTS ═══════════ -->
-  <section class="results reveal" id="results" hidden>
+  <section class="results reveal" id="results">
     <div class="container">
       <div class="section-label">Impact</div>
       <h2 class="section-title">Numbers that <em>matter</em></h2>
@@ -435,7 +436,7 @@
   </section>
 
   <!-- ═══════════ TESTIMONIALS ═══════════ -->
-  <section class="testimonials reveal" hidden>
+  <section class="testimonials reveal">
     <div class="container">
       <div class="section-label">Client Words</div>
       <h2 class="section-title">What they say <em>after launch</em></h2>
@@ -563,7 +564,7 @@
           <p>Book a free 30-minute strategy call. I'll map your highest-ROI automation opportunity and give you a concrete plan — whether you hire me or not.</p>
           <div class="cta-note">No commitment. No pitch deck. Just a conversation about what's possible.</div>
         </div>
-        <form id="leadForm" class="lead-form" autocomplete="on" method="post" action="#" onsubmit="return false;">
+        <form id="leadForm" class="lead-form" autocomplete="on">
           <div class="form-group">
             <input type="text" id="name" name="name" required aria-required="true" autocomplete="name" placeholder=" " aria-label="Your name">
             <label for="name">Your Name *</label>
@@ -614,7 +615,7 @@
   </footer>
 
   <!-- ═══════════ SCRIPTS ═══════════ -->
-  <!-- Safety net: if ES modules fail to load, reveal all hidden sections after 4s -->
+  <!-- Safety net: if ES modules fail to load, reveal animated sections after 4s -->
   <script>
     setTimeout(function() {
       if (!document.documentElement.classList.contains('reveal-ready')) {

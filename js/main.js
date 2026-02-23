@@ -4,18 +4,13 @@ import { initAnimations } from './modules/animations.js';
 import { initForm } from './modules/form.js';
 import { initServiceCards } from './modules/service-cards.js';
 import { initFaq } from './modules/faq.js';
+import { runInitializers } from './modules/bootstrap.js';
 
-function safeInit(name, initializer) {
-  try {
-    initializer();
-  } catch (error) {
-    console.error(`[init] ${name} failed`, error);
-  }
-}
-
-safeInit('nav', initNav);
-safeInit('theme', initTheme);
-safeInit('form', initForm);
-safeInit('animations', initAnimations);
-safeInit('service-cards', initServiceCards);
-safeInit('faq', initFaq);
+runInitializers([
+  { name: 'nav', initializer: initNav },
+  { name: 'theme', initializer: initTheme },
+  { name: 'form', initializer: initForm },
+  { name: 'animations', initializer: initAnimations },
+  { name: 'service-cards', initializer: initServiceCards },
+  { name: 'faq', initializer: initFaq }
+]);

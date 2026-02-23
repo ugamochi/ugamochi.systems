@@ -2,19 +2,14 @@ import { initNav } from './modules/nav.js';
 import { initTheme } from './modules/theme.js';
 import { initForm } from './modules/form.js';
 import { getServicePage } from './data/service-pages.js';
+import { runInitializers } from './modules/bootstrap.js';
 
-function safeInit(name, initializer) {
-  try {
-    initializer();
-  } catch (error) {
-    console.error(`[init] ${name} failed`, error);
-  }
-}
-
-safeInit('nav', initNav);
-safeInit('theme', initTheme);
-safeInit('booking-context', initBookingContext);
-safeInit('form', initForm);
+runInitializers([
+  { name: 'nav', initializer: initNav },
+  { name: 'theme', initializer: initTheme },
+  { name: 'booking-context', initializer: initBookingContext },
+  { name: 'form', initializer: initForm }
+]);
 
 function initBookingContext() {
   const params = new URLSearchParams(window.location.search);

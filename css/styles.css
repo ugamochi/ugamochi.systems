@@ -3,6 +3,7 @@
 @import 'base/reset.css';
 
 /* Components */
+@import 'components/shared.css';
 @import 'components/nav.css';
 @import 'components/section-headers.css';
 @import 'components/forms.css';

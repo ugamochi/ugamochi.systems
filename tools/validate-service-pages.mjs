@@ -70,7 +70,7 @@ for (const service of services) {
   }
 
   const html = readFileSync(pagePath, 'utf8');
-  const canonical = getServiceCanonicalUrl(service.slug, 'https://ugamochi.github.io/ugamochi.systems/');
+  const canonical = getServiceCanonicalUrl(service.slug, 'https://ugamochi.systems/');
 
   expectContains(html, `<h1 class="service-headline">${escapeForContains(service.title)}</h1>`, `${service.slug}: static H1 not found in generated HTML`);
   expectContains(html, `href="${canonical}"`, `${service.slug}: canonical URL mismatch`);

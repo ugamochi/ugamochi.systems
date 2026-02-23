@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book Discovery Call | Pavel Ugamoti</title>
   <meta name="description" content="Book a discovery call for AI automation services and receive a scoped recommendation.">
+  <meta name="lead-webhook-url" content="https://n8n-service-uwaf.onrender.com/webhook/lead-form">
   <meta property="og:title" content="Book Discovery Call | Pavel Ugamoti">
   <meta property="og:description" content="Book a discovery call for AI automation services and receive a scoped recommendation.">
   <link rel="canonical" href="https://ugamochi.systems/book-discovery-call/">
@@ -90,7 +91,7 @@
             <div class="cta-note">If you prefer async first, this same form doubles as a scoped discovery request without scheduling pressure.</div>
           </div>
 
-          <form id="leadForm" class="lead-form" autocomplete="on" method="post" action="#" onsubmit="return false;">
+          <form id="leadForm" class="lead-form" autocomplete="on">
             <div class="form-group">
               <input type="text" id="name" name="name" required aria-required="true" autocomplete="name" placeholder=" ">
               <label for="name">Your Name *</label>

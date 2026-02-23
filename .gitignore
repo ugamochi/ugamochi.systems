@@ -71,7 +71,9 @@ temp/
 secrets.json
 credentials.json
 service-account.json
+n8n-*.json
 
 # Misc
 .netlify/
 .vercel/
+.n8n-local/
