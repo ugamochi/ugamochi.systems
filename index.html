@@ -9,11 +9,11 @@
 
   <!-- SEO & Branding -->
   <meta name="author" content="Pavel Ugamoti">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="dark light">
   <link rel="canonical" href="https://ugamochi.systems/">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%236236f4'/%3E%3Ctext x='50' y='72' font-size='60' font-family='system-ui' font-weight='700' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2309141f'/%3E%3Ctext x='50' y='72' font-size='60' font-family='system-ui' font-weight='700' fill='%239cf8ff' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
 
   <!-- Open Graph / Social Sharing -->
   <meta property="og:title" content="Pavel Ugamoti — Agentic Architect">
@@ -33,11 +33,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <script>
     (function() {
       var saved = localStorage.getItem('theme');
-      var theme = saved !== null ? saved : 'light';
+      var theme = saved !== null ? saved : 'dark';
       if (theme === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
       } else {
@@ -80,33 +80,68 @@
     <div class="hero-grid-bg"></div>
     <div class="hero-glow"></div>
     <div class="container">
-      <div class="hero-content">
-        <div class="hero-tag">AVAILABLE FOR PROJECTS</div>
-        <h1>I build AI systems that <em>run your operations</em> while you sleep</h1>
-        <p class="hero-sub">Agentic architecture for law firms, accounting practices, and service agencies. I design autonomous workflows that qualify leads, process documents, and onboard clients — without adding headcount.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-primary">
-            Book a Free Strategy Call
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
-          <a href="#services" class="btn-ghost">See what I build &darr;</a>
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="hero-tag">AVAILABLE FOR PROJECTS</div>
+          <h1>I build AI systems that <em>run your operations</em> while you sleep</h1>
+          <p class="hero-sub">Agentic architecture for law firms, accounting practices, and service agencies. I design autonomous workflows that qualify leads, process documents, and onboard clients — without adding headcount.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">
+              Book a Free Strategy Call
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </a>
+            <a href="#services" class="btn-ghost">See what I build &darr;</a>
+          </div>
+          <div class="hero-proof">
+            <div class="hero-proof-item">
+              <div class="hero-proof-num">40+</div>
+              <div class="hero-proof-label">Systems deployed</div>
+            </div>
+            <div class="hero-proof-divider"></div>
+            <div class="hero-proof-item">
+              <div class="hero-proof-num">90%</div>
+              <div class="hero-proof-label">Manual tasks eliminated</div>
+            </div>
+            <div class="hero-proof-divider"></div>
+            <div class="hero-proof-item">
+              <div class="hero-proof-num">&lt;24h</div>
+              <div class="hero-proof-label">Client onboarding time</div>
+            </div>
+          </div>
         </div>
-        <div class="hero-proof">
-          <div class="hero-proof-item">
-            <div class="hero-proof-num">40+</div>
-            <div class="hero-proof-label">Systems deployed</div>
+
+        <aside class="hero-panel" aria-label="Operational systems preview">
+          <div class="hero-panel-header">
+            <div>
+              <div class="hero-panel-eyebrow">Operational Snapshot</div>
+              <h2>What the stack automates first</h2>
+            </div>
+            <div class="hero-panel-status">Live system map</div>
           </div>
-          <div class="hero-proof-divider"></div>
-          <div class="hero-proof-item">
-            <div class="hero-proof-num">90%</div>
-            <div class="hero-proof-label">Manual tasks eliminated</div>
+
+          <div class="hero-terminal">
+            <div class="hero-terminal-line">
+              <div class="hero-terminal-label">01 / Inbound</div>
+              <p>Qualify leads, enrich records, and trigger booking paths before your team opens the inbox.</p>
+            </div>
+            <div class="hero-terminal-line">
+              <div class="hero-terminal-label">02 / Documents</div>
+              <p>Extract structured data from PDFs, flag risks, and push clean records into the tools you already run.</p>
+            </div>
+            <div class="hero-terminal-line">
+              <div class="hero-terminal-label">03 / Delivery</div>
+              <p>Launch onboarding flows, searchable internal knowledge, and recurring reporting without manual handoffs.</p>
+            </div>
           </div>
-          <div class="hero-proof-divider"></div>
-          <div class="hero-proof-item">
-            <div class="hero-proof-num">&lt;24h</div>
-            <div class="hero-proof-label">Client onboarding time</div>
+
+          <div class="hero-panel-footer">
+            <div class="hero-panel-note">
+              <span>Fail-closed logic</span>
+              <span>Human escalation</span>
+              <span>Client-owned infra</span>
+            </div>
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
@@ -120,21 +155,21 @@
       <div class="problem-grid">
         <div class="problem-card">
           <div class="problem-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6236f4" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           </div>
           <h3>Hours lost to data entry</h3>
           <p>Your staff spends 40% of their day copying information between systems that should talk to each other automatically.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6236f4" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
           </div>
           <h3>Leads slipping through cracks</h3>
           <p>Inquiries sit unanswered for 4-24 hours. By the time your team responds, the prospect has moved on to a competitor who replied in seconds.</p>
         </div>
         <div class="problem-card">
           <div class="problem-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6236f4" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
           </div>
           <h3>Knowledge locked in people's heads</h3>
           <p>When someone leaves, their institutional knowledge walks out the door. New hires take months to get up to speed because the answers live in scattered docs, emails, and Slack threads.</p>
@@ -368,7 +403,7 @@
         <div class="framework-visual">
           <div class="fw-layer">
             <div class="fw-layer-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6236f4" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
             </div>
             <div class="fw-layer-text">
               <h4>Intelligence Layer</h4>
@@ -378,7 +413,7 @@
           <div class="fw-connector"></div>
           <div class="fw-layer">
             <div class="fw-layer-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6236f4" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
             </div>
             <div class="fw-layer-text">
               <h4>Orchestration Layer</h4>
@@ -388,7 +423,7 @@
           <div class="fw-connector"></div>
           <div class="fw-layer">
             <div class="fw-layer-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6236f4" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
             </div>
             <div class="fw-layer-text">
               <h4>Interface Layer</h4>
@@ -398,7 +433,7 @@
           <div class="fw-connector"></div>
           <div class="fw-layer">
             <div class="fw-layer-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6236f4" stroke-width="2"><path d="M4 7V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3"/><polyline points="14 2 14 8 20 8"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3"/><polyline points="14 2 14 8 20 8"/></svg>
             </div>
             <div class="fw-layer-text">
               <h4>Data Layer</h4>

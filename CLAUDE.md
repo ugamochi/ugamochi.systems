@@ -47,9 +47,19 @@ Main site: `/css/styles.css` imports all modules (base, components, layout).
 Blog: `/blog/css/blog.css` imports only `variables.css`, `reset.css`, and `nav.css` from parent.
 
 CSS variables (dark/light theme): `/css/base/variables.css`
-- `--accent: #6236f4` (purple)
-- `--bg: #0b0b0b` (dark) / `#f5f5f0` (light)
-- `--sans: 'Geist'`, `--mono: 'JetBrains Mono'`
+- Tokens are semantic + HSL-based (background/foreground/surface/accent/border/ring), then bridged to component vars.
+- Current visual direction is **clean minimal** with a warm Claude-like accent palette (orange/amber), not neon/cyan.
+- Typography defaults are system-safe (`Segoe UI` family + monospace fallback) to avoid per-page font-loading mismatch.
+
+### Current Design Constraints (important)
+
+- Keep visuals simple: subtle background glow, very low-noise texture, and restrained effects.
+- Preserve JS hook contracts used by animations and interactions (`.reveal`, `.reveal-ready`, `.service-anim`, `.in-view`, FAQ/nav state classes).
+- Button color hierarchy must stay consistent across all pages:
+  - Primary CTAs: `var(--color-cta)` with dark foreground text
+  - Secondary ghost buttons: transparent with `--border` and text-first emphasis
+  - Tertiary action links (service/article links): accent text treatment only
+- Navigation CTA must be styled via `.nav-links .nav-cta` to avoid specificity overrides from `.nav-links a`.
 
 ## JS Architecture
 

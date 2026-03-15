@@ -8,7 +8,7 @@ export function initServicePageAnimations() {
   document.body.classList.add('service-motion-enabled');
 
   sections.forEach((section, index) => {
-    const delay = Math.min(index * 60, 240);
+    const delay = Math.min(index * 45, 180);
     section.style.setProperty('--service-anim-delay', `${delay}ms`);
   });
 
@@ -22,7 +22,7 @@ export function initServicePageAnimations() {
       });
     },
     {
-      threshold: 0.12,
+      threshold: 0.1,
       rootMargin: '0px 0px -10% 0px'
     }
   );
