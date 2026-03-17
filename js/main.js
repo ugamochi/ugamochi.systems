@@ -3,15 +3,33 @@
  * Focus: Performance, Zero Dependencies, Clean Transitions
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initRevealAnimations();
-  initNavScroll();
-  initMobileNav();
-  initFaq();
-  initLeadForms();
-});
+function bootstrapSite() {
+  // Keep lead forms resilient even if another UI initializer fails.
+  safeInit(initLeadForms);
+  safeInit(initRevealAnimations);
+  safeInit(initNavScroll);
+  safeInit(initMobileNav);
+  safeInit(initFaq);
+}
 
-const FORM_SUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/ugamochi.pavel@gmail.com';
+function safeInit(initFn) {
+  try {
+    initFn();
+  } catch (error) {
+    // Keep site interactive when optional enhancements fail.
+    console.error('[init]', initFn.name, error);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapSite);
+} else {
+  bootstrapSite();
+}
+
+window.addEventListener('pageshow', initLeadForms);
+
+const FORM_SUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/8fb548870455ebf97a4a91cbe259fe33';
 const MIN_FILL_TIME_MS = 2500;
 const RESUBMIT_COOLDOWN_MS = 60000;
 const REQUEST_TIMEOUT_MS = 12000;
@@ -21,6 +39,13 @@ const REQUEST_TIMEOUT_MS = 12000;
  */
 function initRevealAnimations() {
   const revealElements = document.querySelectorAll('.reveal');
+  if (!revealElements.length) return;
+
+  // Fallback for browsers/environments without IntersectionObserver.
+  if (!('IntersectionObserver' in window)) {
+    revealElements.forEach(el => el.classList.add('in-view'));
+    return;
+  }
   
   const observerOptions = {
     threshold: 0.1,
@@ -45,6 +70,7 @@ function initRevealAnimations() {
  */
 function initNavScroll() {
   const nav = document.querySelector('.nav');
+  if (!nav) return;
   let lastScrollY = window.scrollY;
 
   window.addEventListener('scroll', () => {
@@ -102,6 +128,9 @@ function initLeadForms() {
   if (!forms.length) return;
 
   forms.forEach(form => {
+    if (form.dataset.leadBound === 'true') return;
+    form.dataset.leadBound = 'true';
+
     const statusEl = form.querySelector('.form-status');
     const submitBtn = form.querySelector('button[type="submit"]');
     const mountedAt = Date.now();
@@ -152,7 +181,12 @@ function initLeadForms() {
       }
 
       const formFingerprint = `lead-form:${window.location.pathname}`;
-      const lastSubmitAt = Number(window.localStorage.getItem(formFingerprint) || 0);
+      let lastSubmitAt = 0;
+      try {
+        lastSubmitAt = Number(window.localStorage.getItem(formFingerprint) || 0);
+      } catch (_) {
+        lastSubmitAt = 0;
+      }
       if (Date.now() - lastSubmitAt < RESUBMIT_COOLDOWN_MS) {
         setFormStatus(statusEl, 'error', 'Please wait one minute before sending another message.');
         return;
@@ -229,7 +263,11 @@ function initLeadForms() {
           throw new Error('Form submission failed');
         }
 
-        window.localStorage.setItem(formFingerprint, String(Date.now()));
+        try {
+          window.localStorage.setItem(formFingerprint, String(Date.now()));
+        } catch (_) {
+          // Ignore localStorage failures (private mode or restricted storage).
+        }
         form.reset();
         setFormStatus(statusEl, 'success', 'Thanks! Your message was sent. I will reply by email.');
       } catch (error) {
