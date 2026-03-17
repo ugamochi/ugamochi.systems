@@ -17,6 +17,8 @@ CLAUDE.md
 
 # Local private workspace (never push)
 .private/
+archive/
+tools/
 
 # Editor Files
 .vscode/
@@ -86,7 +88,5 @@ n8n-*.json
 .n8n-local/
 
 # Local Reference Captures (large/non-source artifacts)
-archive/reference-materials/
-archive/reference-materials/raw-captures/
 screencapture-*.png
 Capture-*.png
