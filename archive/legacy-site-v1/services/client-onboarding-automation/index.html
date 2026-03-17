@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpenClaw Setup &amp; Security Hardening | Pavel Ugamoti</title>
-  <meta name="description" content="Deploy OpenClaw with policy-first hardening, sandbox controls, channel/provider strategy, and client-owned handover.">
+  <title>Client Onboarding Automation | Pavel Ugamoti</title>
+  <meta name="description" content="Trigger-based onboarding automation from close-won to delivery kickoff with standardized provisioning and communication.">
   <meta name="lead-webhook-url" content="https://n8n-service-uwaf.onrender.com/webhook/lead-form">
   <meta name="author" content="Pavel Ugamoti">
   <meta name="color-scheme" content="dark light">
-  <link rel="canonical" id="canonicalLink" href="https://ugamochi.systems/services/openclaw-setup-security-hardening/">
+  <link rel="canonical" id="canonicalLink" href="https://ugamochi.systems/services/client-onboarding-automation/">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2309141f'/%3E%3Ctext x='50' y='72' font-size='60' font-family='system-ui' font-weight='700' fill='%239cf8ff' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
-  <meta property="og:title" content="OpenClaw Setup &amp; Security Hardening | Pavel Ugamoti">
-  <meta property="og:description" content="Deploy OpenClaw with policy-first hardening, sandbox controls, channel/provider strategy, and client-owned handover.">
+  <meta property="og:title" content="Client Onboarding Automation | Pavel Ugamoti">
+  <meta property="og:description" content="Trigger-based onboarding automation from close-won to delivery kickoff with standardized provisioning and communication.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://ugamochi.systems/services/openclaw-setup-security-hardening/">
+  <meta property="og:url" content="https://ugamochi.systems/services/client-onboarding-automation/">
   <meta property="og:image" content="https://ugamochi.systems/assets/images/og-image.svg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="OpenClaw Setup &amp; Security Hardening | Pavel Ugamoti">
-  <meta name="twitter:description" content="Deploy OpenClaw with policy-first hardening, sandbox controls, channel/provider strategy, and client-owned handover.">
+  <meta name="twitter:title" content="Client Onboarding Automation | Pavel Ugamoti">
+  <meta name="twitter:description" content="Trigger-based onboarding automation from close-won to delivery kickoff with standardized provisioning and communication.">
   <meta name="twitter:image" content="https://ugamochi.systems/assets/images/og-image.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,7 @@
     })();
   </script>
   <link rel="stylesheet" href="../../css/styles.css">
-  <script id="faq-schema-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can this run inside our own cloud/VPC?","acceptedAnswer":{"@type":"Answer","text":"Yes, and that is often preferred for governance and data control."}},{"@type":"Question","name":"How strict should permission mode be?","acceptedAnswer":{"@type":"Answer","text":"Default recommendation is strict-by-default with explicit escalation paths."}},{"@type":"Question","name":"Can we configure multiple providers?","acceptedAnswer":{"@type":"Answer","text":"Yes. Provider routing and failover are included in Growth and Scale scope."}},{"@type":"Question","name":"How is misuse tested?","acceptedAnswer":{"@type":"Answer","text":"Abuse and failure-path testing are part of pre-production validation."}}]}</script>
+  <script id="faq-schema-jsonld" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can onboarding start from payment instead of contract?","acceptedAnswer":{"@type":"Answer","text":"Yes. Trigger sources are configured to match your actual sales workflow."}},{"@type":"Question","name":"Can we support multiple service lines?","acceptedAnswer":{"@type":"Answer","text":"Yes. Growth and Scale scopes include variant routing by deal type."}},{"@type":"Question","name":"Will this work with our PM tool?","acceptedAnswer":{"@type":"Answer","text":"Usually yes. Connectors are selected around your current stack."}},{"@type":"Question","name":"Who maintains it after launch?","acceptedAnswer":{"@type":"Answer","text":"Your team receives runbooks and handover sessions for independent operations."}}]}</script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to content</a>
@@ -45,19 +45,15 @@
     <div class="container">
       <a href="../../index.html" class="nav-logo" aria-label="Ugamochi Systems homepage">ugamochi<span>.</span>systems</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="../../index.html">Home</a></li>
         <li><a href="../../index.html#services">Services</a></li>
-        <li><a href="#problem">Problem</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#packages">Packages</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="../../blog/">Blog</a></li>
         <li>
           <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme" title="Toggle theme">
             <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
             <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </button>
         </li>
-        <li><a href="../../book-discovery-call/?service=openclaw-setup-security-hardening" class="nav-cta" data-intent="book_discovery_call">Book Discovery Call
+        <li><a href="../../book-discovery-call/?service=client-onboarding-automation" class="nav-cta" data-intent="book_discovery_call">Book Discovery Call
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </a></li>
       </ul>
@@ -67,7 +63,7 @@
     </div>
   </nav>
 
-  <main class="service-page" id="main" data-service-slug="openclaw-setup-security-hardening">
+  <main class="service-page" id="main" data-service-slug="client-onboarding-automation">
 
         <section class="service-hero service-anim">
           <div class="container service-hero-grid">
@@ -78,12 +74,12 @@
                 </svg>
                 Back to all services
               </a>
-              <div class="service-kicker">Service 06</div>
-              <h1 class="service-headline">OpenClaw Setup &amp; Security Hardening</h1>
-              <p class="service-sub">Deploy OpenClaw as production infrastructure, not a side experiment: hardened permissions, sandbox policy, channel governance, testing, and handover.</p>
+              <div class="service-kicker">Service 03</div>
+              <h1 class="service-headline">Client Onboarding Automation</h1>
+              <p class="service-sub">Trigger every onboarding step automatically from contract or payment events, so your team delivers a consistent first impression.</p>
               <div class="service-cta-row">
                 <a href="#contact" class="btn-primary" data-intent="send_project_details">Send Project Details</a>
-                <a href="../../book-discovery-call/?service=openclaw-setup-security-hardening" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
+                <a href="../../book-discovery-call/?service=client-onboarding-automation" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
               </div>
               <p class="service-note">Starting prices: Starter <strong>EUR 1,500</strong> · Growth <strong>EUR 3,500</strong> · Custom <strong>EUR 7,500</strong>. Final quote after discovery.</p>
             </div>
@@ -92,18 +88,18 @@
               <div class="service-proof-grid">
                 
                   <article class="service-proof">
-                    <div class="service-proof-value">Policy-first</div>
-                    <div class="service-proof-label">Permissions and sandbox rules before traffic</div>
+                    <div class="service-proof-value">&lt;24h</div>
+                    <div class="service-proof-label">Typical onboarding cycle after automation</div>
                   </article>
                 
                   <article class="service-proof">
-                    <div class="service-proof-value">Multi-channel</div>
-                    <div class="service-proof-label">Controlled integration across approved channels</div>
+                    <div class="service-proof-value">Fewer</div>
+                    <div class="service-proof-label">Missed setup steps and handoff errors</div>
                   </article>
                 
                   <article class="service-proof">
-                    <div class="service-proof-value">Handover-ready</div>
-                    <div class="service-proof-label">Runbook, QA, and ownership transfer included</div>
+                    <div class="service-proof-value">Higher</div>
+                    <div class="service-proof-label">Client onboarding consistency and clarity</div>
                   </article>
                 
               </div>
@@ -119,7 +115,7 @@
                 </ul>
                 <div class="service-summary-cta">
                   <a href="#contact" class="btn-primary" data-intent="send_project_details">Send Details</a>
-                  <a href="../../book-discovery-call/?service=openclaw-setup-security-hardening" class="service-summary-book" data-intent="book_discovery_call">Book Discovery Call</a>
+                  <a href="../../book-discovery-call/?service=client-onboarding-automation" class="service-summary-book" data-intent="book_discovery_call">Book Discovery Call</a>
                 </div>
               </div>
             </aside>
@@ -130,22 +126,22 @@
         <section class="service-section service-anim" id="problem">
           <div class="container">
             <div class="section-label">The Problem</div>
-            <h2 class="section-title">OpenClaw is easy to start and easy to misconfigure</h2>
+            <h2 class="section-title">Onboarding still depends on manual reminders</h2>
             <div class="service-grid-3">
               
                 <article class="service-card-lite">
-                  <h3>Risky defaults</h3>
-                  <p>Permissive policies can expose production actions and sensitive data.</p>
+                  <h3>Handoff delays</h3>
+                  <p>No deterministic trigger between close-won and delivery kickoff.</p>
                 </article>
               
                 <article class="service-card-lite">
-                  <h3>Provider/channel drift</h3>
-                  <p>Inconsistent configuration causes unstable behavior and outages.</p>
+                  <h3>Skipped setup tasks</h3>
+                  <p>Folders, docs, and assignments are inconsistent across clients.</p>
                 </article>
               
                 <article class="service-card-lite">
-                  <h3>No operations model</h3>
-                  <p>Without runbooks and ownership, teams depend on the implementer.</p>
+                  <h3>Weak first-week experience</h3>
+                  <p>New clients lack timely, clear next-step communication.</p>
                 </article>
               
             </div>
@@ -157,38 +153,38 @@
         <section class="service-section service-anim" id="process">
           <div class="container">
             <div class="section-label">How It Works</div>
-            <h2 class="section-title">Discover -&gt; Harden -&gt; Test -&gt; Operate</h2>
+            <h2 class="section-title">Trigger -&gt; Provision -&gt; Assign -&gt; Communicate</h2>
             <div class="service-step-list">
               
                 <article class="service-step">
                   <div class="service-step-num">01</div>
                   <div>
-                    <h4>Risk profiling</h4>
-                    <p>Define data classes, allowed actions, and governance requirements.</p>
+                    <h4>Blueprint mapping</h4>
+                    <p>Define variants, required assets, owners, and milestones by service type.</p>
                   </div>
                 </article>
               
                 <article class="service-step">
                   <div class="service-step-num">02</div>
                   <div>
-                    <h4>Architecture choices</h4>
-                    <p>Select deployment topology, provider strategy, and control baseline.</p>
+                    <h4>Trigger events</h4>
+                    <p>Start workflows from signed contract, payment received, or CRM status change.</p>
                   </div>
                 </article>
               
                 <article class="service-step">
                   <div class="service-step-num">03</div>
                   <div>
-                    <h4>Bootstrap + hardening</h4>
-                    <p>Install OpenClaw and configure permission/sandbox/allowlist policy.</p>
+                    <h4>Provisioning automation</h4>
+                    <p>Create workspaces, folders, tasks, and templates automatically.</p>
                   </div>
                 </article>
               
                 <article class="service-step">
                   <div class="service-step-num">04</div>
                   <div>
-                    <h4>Integration + QA</h4>
-                    <p>Pair channels/providers and run adversarial plus failure-path testing.</p>
+                    <h4>Client communication</h4>
+                    <p>Deliver structured next steps and collect required documents.</p>
                   </div>
                 </article>
               
@@ -207,13 +203,13 @@
                 <div class="fit-column">
                   <h4 class="fit-heading">Good fit</h4>
                   <ul class="service-list">
-                    <li>Teams adopting OpenClaw for real operations, not experiments</li><li>Organizations with compliance/security requirements</li><li>Leaders who need ownership-ready documentation and governance</li>
+                    <li>Agencies and service businesses onboarding clients weekly</li><li>Teams with frequent handoff errors between sales and delivery</li><li>Operators who need consistency across varied project types</li>
                   </ul>
                 </div>
                 <div class="fit-column">
                   <h4 class="fit-heading">Probably not a fit</h4>
                   <ul class="service-list fit-list-not">
-                    <li>Teams wanting unrestricted autonomous tool execution</li><li>Setups with no designated operator/owner</li><li>Projects that skip staging/QA before production</li>
+                    <li>Teams without a defined onboarding checklist</li><li>Businesses with one-off, non-repeatable kickoff processes</li><li>Setups unwilling to assign ownership for onboarding stages</li>
                   </ul>
                 </div>
               </div>
@@ -223,15 +219,15 @@
                 <div class="service-outcome-grid">
                   
                     <article class="service-outcome">
-                      <p>Safer OpenClaw operation under explicit policy controls</p>
+                      <p>Reduced time from close to kickoff</p>
                     </article>
                   
                     <article class="service-outcome">
-                      <p>Reduced deployment risk from misconfiguration and drift</p>
+                      <p>Improved first-week client experience</p>
                     </article>
                   
                     <article class="service-outcome">
-                      <p>Clear handover path with runbooks and owner training</p>
+                      <p>Fewer internal handoff misses and rework cycles</p>
                     </article>
                   
                 </div>
@@ -247,16 +243,16 @@
               <div class="section-label">Deliverables</div>
               <h2 class="section-title">What you actually <em>get</em></h2>
               <ul class="service-list">
-                <li>OpenClaw bootstrap + health validation</li><li>Permission/sandbox/command policy setup</li><li>Channel and provider integration matrix</li><li>QA and red-team summary</li><li>Operations runbook + rollback guide</li><li>Admin/operator handover sessions</li>
+                <li>Trigger-based onboarding orchestration</li><li>Automated workspace and folder setup</li><li>Task templates by role and service type</li><li>Client document collection sequence</li><li>Status visibility + exception handling</li><li>Runbook + team handover</li>
               </ul>
             </div>
             <div>
               <div class="section-label">Integrations</div>
               <h2 class="section-title">Built on your current stack</h2>
               <div class="service-badges">
-                <span>OpenAI</span><span>Anthropic</span><span>OpenRouter</span><span>Ollama</span><span>Telegram/Slack/Discord</span><span>Docker sandbox</span>
+                <span>PandaDoc / DocuSign</span><span>Stripe</span><span>Google Workspace</span><span>Microsoft 365</span><span>Asana/ClickUp/Notion/Jira</span><span>n8n</span>
               </div>
-              <div class="service-pricing-note">Client-owned infrastructure and credentials from day one. No shadow ownership risk.</div>
+              <div class="service-pricing-note">Client-owned implementation model with long-term continuity and no platform lock-in.</div>
             </div>
           </div>
         </section>
@@ -269,18 +265,18 @@
             <div class="service-grid-3">
               
                 <article class="service-card-lite service-proof-card">
-                  <h3>Policy-first</h3>
-                  <p>Permissions and sandbox rules before traffic</p>
+                  <h3>&lt;24h</h3>
+                  <p>Typical onboarding cycle after automation</p>
                 </article>
               
                 <article class="service-card-lite service-proof-card">
-                  <h3>Multi-channel</h3>
-                  <p>Controlled integration across approved channels</p>
+                  <h3>Fewer</h3>
+                  <p>Missed setup steps and handoff errors</p>
                 </article>
               
                 <article class="service-card-lite service-proof-card">
-                  <h3>Handover-ready</h3>
-                  <p>Runbook, QA, and ownership transfer included</p>
+                  <h3>Higher</h3>
+                  <p>Client onboarding consistency and clarity</p>
                 </article>
               
             </div>
@@ -318,10 +314,10 @@
                 <article class="package-card">
                   <div class="package-name">Starter</div>
                   <div class="package-price">EUR 1,500</div>
-                  <div class="package-meta">Typical timeline: 3-7 days</div>
-                  <p class="package-for">Secure single-environment deployment baseline</p>
+                  <div class="package-meta">Typical timeline: 1 week</div>
+                  <p class="package-for">Single onboarding track with basic automation</p>
                   <ul class="service-list package-list">
-                    <li>Bootstrap</li><li>Core hardening</li><li>One channel/provider setup</li><li>Ops runbook</li>
+                    <li>One trigger path</li><li>Core provisioning</li><li>Task assignment</li><li>Client confirmation message</li>
                   </ul>
                 </article>
               
@@ -329,9 +325,9 @@
                   <div class="package-name">Growth</div>
                   <div class="package-price">EUR 3,500</div>
                   <div class="package-meta">Typical timeline: 2-3 weeks</div>
-                  <p class="package-for">Policy-driven rollout with testing and multi-channel setup</p>
+                  <p class="package-for">Multiple onboarding variants and document collection</p>
                   <ul class="service-list package-list">
-                    <li>Expanded hardening</li><li>Multi-channel config</li><li>QA scenarios</li><li>Operator enablement</li>
+                    <li>Variant logic</li><li>Docs intake flow</li><li>Cross-tool sync</li><li>Exception routes</li>
                   </ul>
                 </article>
               
@@ -339,9 +335,9 @@
                   <div class="package-name">Custom</div>
                   <div class="package-price">EUR 7,500</div>
                   <div class="package-meta">Typical timeline: 4+ weeks</div>
-                  <p class="package-for">Advanced governance and high-assurance production setup</p>
+                  <p class="package-for">Mature operation requiring visibility + governance</p>
                   <ul class="service-list package-list">
-                    <li>Advanced policy matrix</li><li>Provider fallback strategy</li><li>Monitoring design</li><li>Governance playbook</li>
+                    <li>Advanced handoff automation</li><li>SLA monitoring</li><li>Ops reporting</li><li>Enablement sessions</li>
                   </ul>
                 </article>
               
@@ -353,27 +349,27 @@
         <section class="faq service-faq service-anim" id="faq">
           <div class="container">
             <div class="section-label">FAQ</div>
-            <h2 class="section-title">Pre-go-live questions</h2>
+            <h2 class="section-title">Scope and rollout questions</h2>
             <div class="faq-grid">
               <div class="faq-list">
                 
         <article class="faq-item service-faq-item">
           <button class="faq-question" aria-expanded="false">
-            Can this run inside our own cloud/VPC?
+            Can onboarding start from payment instead of contract?
             <div class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
           </button>
           <div class="faq-answer">
-            <p>Yes, and that is often preferred for governance and data control.</p>
+            <p>Yes. Trigger sources are configured to match your actual sales workflow.</p>
           </div>
         </article>
       
         <article class="faq-item service-faq-item">
           <button class="faq-question" aria-expanded="false">
-            How strict should permission mode be?
+            Can we support multiple service lines?
             <div class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
           </button>
           <div class="faq-answer">
-            <p>Default recommendation is strict-by-default with explicit escalation paths.</p>
+            <p>Yes. Growth and Scale scopes include variant routing by deal type.</p>
           </div>
         </article>
       
@@ -382,21 +378,21 @@
                 
         <article class="faq-item service-faq-item">
           <button class="faq-question" aria-expanded="false">
-            Can we configure multiple providers?
+            Will this work with our PM tool?
             <div class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
           </button>
           <div class="faq-answer">
-            <p>Yes. Provider routing and failover are included in Growth and Scale scope.</p>
+            <p>Usually yes. Connectors are selected around your current stack.</p>
           </div>
         </article>
       
         <article class="faq-item service-faq-item">
           <button class="faq-question" aria-expanded="false">
-            How is misuse tested?
+            Who maintains it after launch?
             <div class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div>
           </button>
           <div class="faq-answer">
-            <p>Abuse and failure-path testing are part of pre-production validation.</p>
+            <p>Your team receives runbooks and handover sessions for independent operations.</p>
           </div>
         </article>
       
@@ -409,10 +405,10 @@
         <section class="service-cta-band service-anim">
           <div class="container">
             <div class="section-label">Next Step</div>
-            <h2 class="section-title">If OpenClaw is strategic, deploy it with governance from day one.</h2>
+            <h2 class="section-title">If onboarding is still checklist-driven and fragile, automate this before scaling sales.</h2>
             <div class="service-cta-row">
               <a href="#contact" class="btn-primary" data-intent="send_project_details">Send Project Details</a>
-              <a href="../../book-discovery-call/?service=openclaw-setup-security-hardening" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
+              <a href="../../book-discovery-call/?service=client-onboarding-automation" class="btn-ghost" data-intent="book_discovery_call">Book Discovery Call</a>
             </div>
           </div>
         </section>
@@ -424,10 +420,10 @@
             <div class="cta-content">
               <div class="cta-text">
                 <div class="section-label">Send Scope</div>
-                <h2>Share OpenClaw goals and required risk posture</h2>
-                <p>I will return recommended architecture, hardening scope, timeline, and package range.</p>
-                <div class="cta-note">Include preferred deployment mode and channel/provider requirements.</div>
-                <a href="../../book-discovery-call/?service=openclaw-setup-security-hardening" class="service-book-link" data-intent="book_discovery_call">Prefer live scoping? Book a discovery call.</a>
+                <h2>Share your onboarding flow and where handoffs fail</h2>
+                <p>I will return a rollout plan, timeline, and package recommendation.</p>
+                <div class="cta-note">Async scope intake is the default. Booking is optional for live scoping.</div>
+                <a href="../../book-discovery-call/?service=client-onboarding-automation" class="service-book-link" data-intent="book_discovery_call">Prefer live scoping? Book a discovery call.</a>
               </div>
 
               <form id="leadForm" class="lead-form" autocomplete="on">
@@ -444,12 +440,12 @@
                   <label for="company">Company (Optional)</label>
                 </div>
                 <div class="form-group">
-                  <textarea id="message" name="message" rows="4" placeholder=" " aria-label="Deployment mode + channel/provider needs"></textarea>
-                  <label for="message">Deployment mode + channel/provider needs</label>
-                  <span class="form-hint">Local, VM/VPS, or managed? Which channels and providers are required?</span>
+                  <textarea id="message" name="message" rows="4" placeholder=" " aria-label="Current onboarding flow + blockers"></textarea>
+                  <label for="message">Current onboarding flow + blockers</label>
+                  <span class="form-hint">Which steps are currently delayed, skipped, or inconsistent?</span>
                 </div>
                 <input type="hidden" name="intent" value="send_project_details">
-                <input type="hidden" name="service_requested" value="OpenClaw Setup &amp; Security Hardening">
+                <input type="hidden" name="service_requested" value="Client Onboarding Automation">
                 <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
                 <button type="submit" class="btn-primary form-submit">
                   <span class="btn-text">Send Project Details</span>

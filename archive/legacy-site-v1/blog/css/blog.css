@@ -239,8 +239,23 @@ body {
 .article-page { padding-top: 6rem; }
 
 .article-hero {
-  padding: 4rem 0 3rem;
+  padding: 4rem 0 2rem;
   border-bottom: 1px solid var(--border);
+}
+
+.article-hero-image {
+  margin: 2rem 0 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.article-hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
 }
 
 .article-breadcrumb {
@@ -355,6 +370,18 @@ body {
 }
 .article-prose a:hover { text-decoration-color: var(--accent-light); }
 
+/* Buttons inside prose must not inherit prose link styles */
+.article-prose a.btn-primary,
+.article-prose a.btn-ghost {
+  color: #041018;
+  text-decoration: none;
+}
+.article-prose a.btn-primary:hover,
+.article-prose a.btn-ghost:hover {
+  color: #041018;
+  text-decoration: none;
+}
+
 .article-prose blockquote {
   border-left: 3px solid var(--accent);
   padding: 1rem 1.5rem;
@@ -419,16 +446,23 @@ body {
 
 /* ─── Inline CTA ─── */
 .inline-cta {
-  background: var(--card-bg);
-  box-shadow: var(--card-accent-shadow);
-  border-radius: var(--radius-xl);
-  padding: 1.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-dim);
+  border-left: 3px solid hsl(var(--accent));
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
   margin: 2.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
-.inline-cta p { margin-bottom: 0; color: var(--text-primary) !important; font-weight: 500; }
+.inline-cta p {
+  margin-bottom: 0;
+  color: var(--text-primary) !important;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
 .inline-cta .btn-primary { align-self: flex-start; }
 
 /* ─── FAQ in article ─── */

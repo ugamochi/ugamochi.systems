@@ -22,7 +22,9 @@
   .service-grid-4,
   .service-grid-3,
   .package-grid,
-  .service-outcome-grid {
+  .service-outcome-grid,
+  .service-step-list,
+  .service-testimonial-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -80,7 +82,9 @@
   .package-grid,
   .service-fit-grid,
   .service-outcome-grid,
-  .faq-grid {
+  .faq-grid,
+  .service-step-list,
+  .service-testimonial-grid {
     grid-template-columns: 1fr;
   }
 

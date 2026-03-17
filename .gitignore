@@ -1,5 +1,6 @@
 # Operating System Files
 .DS_Store
+**/.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
@@ -10,6 +11,12 @@ Desktop.ini
 
 # Claude Code
 .claude/
+GEMINI.md
+README.md
+CLAUDE.md
+
+# Local private workspace (never push)
+.private/
 
 # Editor Files
 .vscode/
@@ -77,3 +84,9 @@ n8n-*.json
 .netlify/
 .vercel/
 .n8n-local/
+
+# Local Reference Captures (large/non-source artifacts)
+archive/reference-materials/
+archive/reference-materials/raw-captures/
+screencapture-*.png
+Capture-*.png

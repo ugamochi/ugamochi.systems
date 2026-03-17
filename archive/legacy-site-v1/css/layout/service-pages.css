@@ -34,6 +34,18 @@
 
 .service-kicker {
   margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.28rem 0.72rem;
+  border: 1px solid var(--accent-dim);
+  border-radius: var(--radius-pill);
+  background: var(--accent-glow);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-light);
 }
 
 .service-back-link {
@@ -177,6 +189,25 @@
 
 .service-section {
   scroll-margin-top: 7.5rem;
+  padding: clamp(2.6rem, 4vw, 4rem) 0;
+}
+
+.service-section .section-title {
+  max-width: none;
+  font-size: clamp(1.55rem, 3vw, 2.4rem);
+  margin-bottom: 0.7rem;
+}
+
+.service-section .section-desc {
+  margin-bottom: 1.4rem;
+}
+
+.service-grid-2,
+.service-grid-3,
+.service-grid-4 {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.2rem;
 }
 
 .service-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -262,7 +293,10 @@
 }
 
 .service-step-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.95rem;
+  margin-top: 1.2rem;
 }
 
 .service-step {
@@ -279,6 +313,14 @@
 .service-step-num {
   width: 2.5rem;
   height: 2.5rem;
+  border-radius: 999px;
+  background: var(--accent-glow);
+  border: 1px solid var(--accent-dim);
+  color: var(--accent-light);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
   font-size: 0.7rem;
 }
 
@@ -300,8 +342,69 @@
   margin-top: 1rem;
 }
 
+/* Deliverables/integrations two-col: start-align so left list doesn't stretch right column */
+#deliverables .service-grid-2 {
+  align-items: start;
+}
+
+.service-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.service-badges span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--bg-card);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.service-badges span:hover {
+  border-color: var(--accent-dim);
+  color: var(--text-primary);
+}
+
+.service-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.58rem;
+}
+
+.service-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: 0.92rem;
+}
+
+.service-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: var(--accent-light);
+}
+
+.fit-list-not li::before {
+  background: var(--text-muted);
+}
+
 .service-pricing-note {
-  margin-top: 1.1rem;
+  margin-top: 1.5rem;
   padding: 1rem 1.1rem;
   border-radius: var(--radius-lg);
   background: var(--accent-glow);
@@ -398,10 +501,53 @@
 
 .service-testimonial-grid {
   margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.service-testimonial-card {
+  position: relative;
+  padding: 1.25rem 1.2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.service-testimonial-quote {
+  position: absolute;
+  top: 0.45rem;
+  left: 0.85rem;
+  font-family: var(--display);
+  font-size: 2.25rem;
+  color: var(--accent-glow);
+  line-height: 1;
+}
+
+.service-testimonial-card blockquote {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.72;
+  color: var(--text-secondary);
+  position: relative;
+  z-index: 1;
 }
 
 .service-testimonial-meta {
   margin-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.7rem;
+}
+
+.service-testimonial-author {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.service-testimonial-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
 }
 
 .package-grid {
